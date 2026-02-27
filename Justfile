@@ -30,6 +30,10 @@ vm-ssh:
 vm-status:
     lxc list workstation --format=table
 
-# E2E validation: init, create VM, verify, destroy
+# E2E validation: destroy, create VM, verify (leaves VM running)
 vm-test:
     bash infra/scripts/vm-test.sh
+
+# Scan full git history for leaked secrets
+scan-history:
+    gitleaks detect --source . -v
