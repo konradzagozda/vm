@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Isolated VM-based development environment designed for Claude Code usage. A configurable host directory is mounted into the VM so Claude can work inside the VM while files live on the host machine.
 
-**Tech stack:** LXD/QEMU/KVM (virtualization), OpenTofu (IaC), Ubuntu minimal (VM OS), Justfile (task runner).
+**Tech stack:** LXD/QEMU/KVM (virtualization), OpenTofu (IaC), Ubuntu 24.04 (VM OS), Justfile (task runner), pre-commit (hooks).
 
 ## Key Files
 
@@ -30,9 +30,7 @@ just vm-up      # Create/update VM
 just vm-down    # Destroy VM
 just vm-ssh     # Shell into VM as root
 just vm-status  # Show VM status
-
-# Launch Claude Code
-claude
+just vm-test    # E2E validation (create, verify, destroy)
 ```
 
 ## Architecture
@@ -41,7 +39,7 @@ claude
 Host (Justfile, .env)
   └── VM (OpenTofu → LXD/QEMU/KVM → Ubuntu 24.04)
        ├── Host dir mounted at /root/vm_projects (via LXD disk device)
-       └── Cloud-init runs vm-setup.sh from mount on first boot
+       └── Cloud-init embeds and runs vm-setup.sh via write_files on first boot
 ```
 
 ## Conventions
@@ -55,4 +53,4 @@ Host (Justfile, .env)
 - Verify latest versions of dependencies (actions, hooks, packages) before writing config files — don't assume remembered versions are current
 - Include test evidence (command output) in PR descriptions so reviewers can verify without running locally
 - Keep commits scoped to the task — don't bundle unrelated changes into a task branch
-- Squash fix-up commits before merging so the main branch history stays clean
+- Rebase and merge (not squash) — keep individual commits in main branch history
