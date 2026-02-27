@@ -8,6 +8,14 @@ write_files:
     permissions: "0755"
     content: |
       ${indent(6, vm_setup_sh)}
+  - path: /root/.env
+    permissions: "0600"
+    content: |
+      ${indent(6, env_content)}
+  - path: /root/.keys/vm-claude-agent.pem
+    permissions: "0600"
+    content: |
+      ${indent(6, gh_app_private_key)}
 runcmd:
   - |
     # Wait for workspace mount
