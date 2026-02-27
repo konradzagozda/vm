@@ -15,17 +15,17 @@ vm-init:
 vm-plan:
     tofu -chdir=infra plan \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
-      -var="gh_app_private_key_path=$GH_APP_PRIVATE_KEY_PATH"
+      -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 
 vm-up:
     tofu -chdir=infra apply -auto-approve \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
-      -var="gh_app_private_key_path=$GH_APP_PRIVATE_KEY_PATH"
+      -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 
 vm-down:
     tofu -chdir=infra destroy -auto-approve \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
-      -var="gh_app_private_key_path=$GH_APP_PRIVATE_KEY_PATH"
+      -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 
 vm-ssh:
     lxc exec workstation -- sudo --login --user root
@@ -42,13 +42,15 @@ vm-test:
     echo "==> Creating VM..."
     tofu -chdir=infra apply -auto-approve \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
-      -var="gh_app_private_key_path=$GH_APP_PRIVATE_KEY_PATH"
+      -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
     echo "==> Waiting for cloud-init to complete..."
     lxc exec workstation -- cloud-init status --wait
     echo "==> Verifying VM is running..."
     lxc list workstation --format=csv -c s | grep -q RUNNING
     echo "==> Verifying mount..."
     lxc exec workstation -- mountpoint -q /root/vm_projects
+    echo "==> Verifying secrets mount..."
+    lxc exec workstation -- test -f /root/secrets/.env
     echo "==> Verifying network..."
     lxc exec workstation -- ping -c 1 -W 5 archive.ubuntu.com
     echo "==> Verifying Claude Code..."
@@ -60,5 +62,5 @@ vm-test:
     echo "==> Destroying VM..."
     tofu -chdir=infra destroy -auto-approve \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
-      -var="gh_app_private_key_path=$GH_APP_PRIVATE_KEY_PATH"
+      -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
     echo "==> All checks passed."

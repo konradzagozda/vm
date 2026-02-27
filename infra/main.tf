@@ -7,11 +7,9 @@ resource "lxd_instance" "vm" {
 
   config = {
     "cloud-init.user-data" = templatefile("${path.module}/cloud-init.yml.tftpl", {
-      vm_mount_path      = var.vm_mount_path
-      vm_packages        = file("${path.module}/scripts/vm-packages.txt")
-      vm_setup_sh        = file("${path.module}/scripts/vm-setup.sh")
-      env_content        = file("${path.root}/../.env")
-      gh_app_private_key = file(var.gh_app_private_key_path)
+      vm_mount_path = var.vm_mount_path
+      vm_packages   = file("${path.module}/scripts/vm-packages.txt")
+      vm_setup_sh   = file("${path.module}/scripts/vm-setup.sh")
     })
   }
 
@@ -36,6 +34,15 @@ resource "lxd_instance" "vm" {
     properties = {
       source = var.host_mount_path
       path   = var.vm_mount_path
+    }
+  }
+
+  device {
+    name = "secrets"
+    type = "disk"
+    properties = {
+      source = var.host_secrets_path
+      path   = "/root/secrets"
     }
   }
 
