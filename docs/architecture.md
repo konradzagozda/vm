@@ -1,6 +1,6 @@
 # Architecture
 
-High-level overview of the vm_dev system.
+Isolated VM-based development environment designed for Claude Code usage. A configurable host directory is mounted into the VM so Claude can work inside the VM while files live on the host machine.
 
 ```mermaid
 graph TB
