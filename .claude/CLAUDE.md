@@ -10,11 +10,10 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 
 ## Key Files
 
-- `secrets/` — Contains `.env` and private keys. Gitignored, mounted into VM at `/root/secrets`.
-- `.env.example` — Template for `secrets/.env`.
+- `secrets/` — Contains `.env`, `.env.example`, and private keys. Gitignored, mounted into VM at `/root/secrets`.
 - `README.md` — Prerequisites and usage instructions.
 - `infra/` — OpenTofu configuration for VM provisioning (LXD provider, cloud-init template, setup scripts)
-- `.mcp.json` — MCP server config (context7, mcp-atlassian) — used by Claude Code in the VM
+- `infra/scripts/vm-test.sh` — E2E validation script (used by `just vm-test`)
 
 ## Commands
 
