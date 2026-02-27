@@ -1,16 +1,6 @@
 #cloud-config
 package_update: true
 
-packages:
-  - git
-  - curl
-  - zsh
-  - jq
-  - build-essential
-  - unzip
-  - ca-certificates
-  - gnupg
-
 apt:
   sources:
     nodesource:
@@ -21,6 +11,18 @@ apt:
       source: "deb [arch=amd64 signed-by=$KEY_FILE] https://cli.github.com/packages stable main"
       keyid: "23F3D4EA75716059"
       keyserver: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+
+packages:
+  - git
+  - curl
+  - zsh
+  - jq
+  - build-essential
+  - unzip
+  - ca-certificates
+  - gnupg
+  - nodejs
+  - gh
 
 write_files:
   - path: /root/.zshrc
@@ -41,17 +43,18 @@ write_files:
       export GH_APP_PRIVATE_KEY_PATH="/root/secrets/vm-claude-agent.pem"
 
 runcmd:
+  # Install tools not available via apt
+  - curl -LsSf https://astral.sh/uv/install.sh | sh
+  - curl -fsSL https://claude.ai/install.sh | bash
+  - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  # Configure shell and services
+  - chsh -s /usr/bin/zsh root
   - |
     # Wait for workspace mount
     for i in $(seq 1 30); do
       mountpoint -q ${vm_mount_path} && break
       sleep 2
     done
-  - apt-get install -y nodejs gh
-  - curl -LsSf https://astral.sh/uv/install.sh | sh
-  - curl -fsSL https://claude.ai/install.sh | bash
-  - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-  - chsh -s /usr/bin/zsh root
   - |
     export PATH="/root/.claude/local/bin:/root/.local/bin:$PATH"
     claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp@latest
