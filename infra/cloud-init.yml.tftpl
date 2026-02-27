@@ -22,6 +22,11 @@ runcmd:
       | tee /etc/apt/sources.list.d/github-cli.list
     apt-get update
     apt-get install -y gh
+  - |
+    mkdir -p /root/.local/bin
+    curl -fsSL https://github.com/Link-/gh-token/releases/latest/download/linux-amd64 \
+      -o /root/.local/bin/gh-token
+    chmod +x /root/.local/bin/gh-token
   - curl -LsSf https://astral.sh/uv/install.sh | sh
   - curl -fsSL https://claude.ai/install.sh | bash
   - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

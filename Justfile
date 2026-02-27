@@ -2,12 +2,7 @@ set dotenv-filename := "secrets/.env"
 
 # GitHub Setup
 gh-setup:
-    gh token generate \
-      --app-id "$GH_APP_ID" \
-      --installation-id "$GH_APP_INSTALLATION_ID" \
-      --key "$GH_APP_PRIVATE_KEY_PATH" \
-      | jq -r '.token' \
-      | gh auth login --with-token
+    bash infra/scripts/gh-setup.sh
     git remote set-url origin "https://github.com/$(git remote get-url origin | sed 's|.*github.com[:/]||')"
 
 # VM Provisioning

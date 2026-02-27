@@ -9,6 +9,9 @@ TOFU_VARS=(
 echo "==> Initializing..."
 tofu -chdir=infra init -input=false
 
+echo "==> Destroying existing VM (if any)..."
+tofu -chdir=infra destroy -auto-approve "${TOFU_VARS[@]}"
+
 echo "==> Creating VM..."
 tofu -chdir=infra apply -auto-approve "${TOFU_VARS[@]}"
 
@@ -30,13 +33,17 @@ lxc exec workstation -- ping -c 1 -W 5 archive.ubuntu.com
 echo "==> Verifying Claude Code..."
 lxc exec workstation -- zsh -lc "claude --version"
 
-echo "==> Verifying env vars loaded..."
-lxc exec workstation -- zsh -lc "echo \$GIT_AUTHOR_NAME"
+echo "==> Verifying git identity vars..."
+lxc exec workstation -- zsh -lc "env | grep GIT"
+
+echo "==> Verifying Jira vars..."
+lxc exec workstation -- zsh -lc "env | grep JIRA"
+
+echo "==> Verifying gh auth login with App credentials..."
+lxc exec workstation -- zsh -lc "bash -" < infra/scripts/gh-setup.sh
+lxc exec workstation -- zsh -lc "gh auth status"
 
 echo "==> VM info:"
 lxc exec workstation -- uname -a
 
-echo "==> Destroying VM..."
-tofu -chdir=infra destroy -auto-approve "${TOFU_VARS[@]}"
-
-echo "==> All checks passed."
+echo "==> All checks passed. VM is running."
