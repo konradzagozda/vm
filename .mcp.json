@@ -18,6 +18,14 @@
         "JIRA_USERNAME": "${JIRA_USERNAME}",
         "JIRA_API_TOKEN": "${JIRA_API_TOKEN}"
       }
+    },
+    "ElevenLabs": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["elevenlabs-mcp"],
+      "env": {
+        "ELEVENLABS_API_KEY": "${ELEVENLABS_API_KEY}"
+      }
     }
   }
 }

@@ -39,7 +39,7 @@ variable "ubuntu_image" {
   default     = "ubuntu:24.04"
 }
 
-variable "gh_app_private_key_path" {
-  description = "Path to the GitHub App private key file on the host"
+variable "host_secrets_path" {
+  description = "Absolute path to the secrets directory on the host (contains .env, private keys)"
   type        = string
 }
