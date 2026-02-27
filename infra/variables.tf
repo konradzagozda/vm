@@ -1,7 +1,7 @@
 variable "vm_name" {
   description = "Name of the LXD virtual machine"
   type        = string
-  default     = "claude-dev"
+  default     = "workstation"
 }
 
 variable "cpus" {
