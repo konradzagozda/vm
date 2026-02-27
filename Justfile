@@ -1,3 +1,5 @@
+set dotenv-filename := "secrets/.env"
+
 # GitHub Setup
 gh-setup:
     gh token generate \

@@ -18,9 +18,6 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 ## Commands
 
 ```bash
-# Load environment variables (must be done before other commands)
-set -a && source secrets/.env && set +a
-
 # Authenticate GitHub CLI as the bot app
 just gh-setup
 
