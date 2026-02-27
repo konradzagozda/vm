@@ -8,6 +8,17 @@
         "@upstash/context7-mcp@latest"
       ],
       "env": {}
+    },
+    "mcp-atlassian": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-atlassian"],
+      "env": {
+        "JIRA_URL": "${JIRA_URL}",
+        "JIRA_USERNAME": "${JIRA_USERNAME}",
+        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
+        "ENABLED_TOOLS": "jira_get_issue,jira_search,jira_create_issue,jira_update_issue"
+      }
     }
   }
 }
