@@ -2,3 +2,7 @@
 .claude/settings.local.json
 .claude/log/commands.jsonl
 .keys/
+infra/.terraform/
+.terraform/
+*.tfstate*
+infra/terraform.tfstate*
