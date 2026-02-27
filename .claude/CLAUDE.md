@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Isolated VM-based development environment designed for Claude Code usage. A configurable host directory is mounted into the VM so Claude can work inside the VM while files live on the host machine.
 
-**Tech stack:** LXD/QEMU/KVM (virtualization), OpenTofu (IaC), Ubuntu 24.04 (VM OS), Justfile (task runner), pre-commit (hooks).
+**Tech stack:** LXD/QEMU/KVM (virtualization), OpenTofu (IaC), Ubuntu 24.04 (VM OS), Justfile (task runner), pre-commit + gitleaks (hooks).
 
 ## Key Files
 
@@ -14,6 +14,7 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 - `secrets/.env.example` — Template for required environment variables (tracked in git).
 - `README.md` — Prerequisites and usage instructions.
 - `infra/` — OpenTofu configuration for VM provisioning (LXD provider, cloud-init template)
+- `infra/scripts/gh-setup.sh` — Shared GitHub App auth script (works on host and in VM)
 - `infra/scripts/vm-test.sh` — E2E validation script (used by `just vm-test`)
 
 ## Commands
@@ -29,7 +30,8 @@ just vm-up      # Create/update VM
 just vm-down    # Destroy VM
 just vm-ssh     # Shell into VM as root
 just vm-status  # Show VM status
-just vm-test    # E2E validation (create, verify, destroy)
+just vm-test    # E2E validation (destroy, create, verify — leaves VM running)
+just scan-history  # Scan full git history for leaked secrets (gitleaks)
 ```
 
 ## Architecture
@@ -39,8 +41,9 @@ Host (Justfile, secrets/)
   └── VM (OpenTofu → LXD/QEMU/KVM → Ubuntu 24.04)
        ├── Host dir mounted at /root/vm_projects (via LXD disk device)
        ├── secrets/ mounted at /root/secrets (live — edits on host reflect in VM)
-       ├── Cloud-init native modules: packages, apt sources, write_files, runcmd
-       ├── Shell: zsh + oh-my-zsh, Claude Code on PATH, gh CLI installed
+       ├── Cloud-init runcmd: NodeSource, gh CLI repo, gh-token, uv, Claude Code, oh-my-zsh
+       ├── /etc/profile.d/vm-env.sh: PATH, secrets/.env, git identity (all login shells)
+       ├── Shell: zsh + oh-my-zsh (default), gh CLI + gh-token on PATH
        └── MCP servers: context7 (npx), mcp-atlassian (uvx), ElevenLabs
 ```
 
