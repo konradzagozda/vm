@@ -8,8 +8,6 @@ resource "lxd_instance" "vm" {
   config = {
     "cloud-init.user-data" = templatefile("${path.module}/cloud-init.yml.tftpl", {
       vm_mount_path = var.vm_mount_path
-      vm_packages   = file("${path.module}/scripts/vm-packages.txt")
-      vm_setup_sh   = file("${path.module}/scripts/vm-setup.sh")
     })
   }
 

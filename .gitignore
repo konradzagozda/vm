@@ -1,4 +1,5 @@
-secrets/
+secrets/*
+!secrets/.env.example
 .claude/settings.local.json
 .claude/log/commands.jsonl
 infra/.terraform/

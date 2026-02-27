@@ -1,8 +1,0 @@
-git
-curl
-zsh
-jq
-build-essential
-unzip
-ca-certificates
-gnupg
