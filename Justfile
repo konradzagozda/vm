@@ -22,10 +22,10 @@ vm-down:
     tofu -chdir=infra destroy -auto-approve -var="host_mount_path=$VM_HOST_MOUNT_PATH"
 
 vm-ssh:
-    lxc exec claude-dev -- sudo --login --user root
+    lxc exec workstation -- sudo --login --user root
 
 vm-status:
-    lxc list claude-dev --format=table
+    lxc list workstation --format=table
 
 # E2E validation: init, create VM, verify, destroy
 vm-test:
@@ -38,13 +38,13 @@ vm-test:
     echo "==> Waiting for VM to settle..."
     sleep 10
     echo "==> Verifying VM is running..."
-    lxc list claude-dev --format=csv -c s | grep -q RUNNING
+    lxc list workstation --format=csv -c s | grep -q RUNNING
     echo "==> Verifying mount..."
-    lxc exec claude-dev -- mountpoint -q /root/vm_projects
+    lxc exec workstation -- mountpoint -q /root/vm_projects
     echo "==> Verifying network..."
-    lxc exec claude-dev -- ping -c 1 -W 5 archive.ubuntu.com
+    lxc exec workstation -- ping -c 1 -W 5 archive.ubuntu.com
     echo "==> VM info:"
-    lxc exec claude-dev -- uname -a
+    lxc exec workstation -- uname -a
     echo "==> Destroying VM..."
     tofu -chdir=infra destroy -auto-approve -var="host_mount_path=$VM_HOST_MOUNT_PATH"
     echo "==> All checks passed."
