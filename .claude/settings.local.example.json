@@ -11,6 +11,6 @@
     "JIRA_URL": "https://your-company.atlassian.net",
     "JIRA_USERNAME": "your.email@company.com",
     "JIRA_API_TOKEN": "your_api_token_from_id.atlassian.com",
-    "GH_TOKEN": "token"
+    "GH_TOKEN": "your_github_personal_access_token"
   }
 }
