@@ -1,0 +1,48 @@
+{
+    "permissions": {
+        "allow": [
+            "Read",
+            "Edit",
+            "Bash(ls *)",
+            "Bash(grep *)",
+            "Bash(head *)",
+            "Bash(cat *)",
+            "Bash(git:*)",
+            "mcp__context7"
+        ],
+        "deny": [
+            "Bash(curl *)",
+            "Bash(wget *)",
+            "Edit(INTENT.md)"
+        ],
+        "ask": [
+            "Edit(CLAUDE.md)"
+        ],
+        "defaultMode": "default"
+    },
+    "availableModels": [
+        "sonnet",
+        "opus",
+        "opusplan"
+    ],
+    "respectGitignore": false,
+    "alwaysThinkingEnabled": false,
+    "promptSuggestionEnabled": false,
+    "autoMemoryEnabled": false,
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "Bash",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": ".claude/hooks/claude_log_command.py"
+                    }
+                ]
+            }
+        ]
+    },
+    "env": {
+        "CLAUDE_ENV_FILE": "../.env"
+    }
+}
