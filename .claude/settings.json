@@ -16,13 +16,15 @@
         "deny": [
             "Bash(curl *)",
             "Bash(wget *)"
+
         ],
         "defaultMode": "plan"
     },
     "availableModels": [
         "sonnet",
         "opus",
-        "opusplan"
+        "opusplan",
+        "haiku"
     ],
     "respectGitignore": false,
     "alwaysThinkingEnabled": false,
