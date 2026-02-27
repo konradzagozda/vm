@@ -1,17 +1,6 @@
 #cloud-config
 package_update: true
 
-apt:
-  sources:
-    nodesource:
-      source: "deb [signed-by=$KEY_FILE] https://deb.nodesource.com/node_lts.x nodistro main"
-      keyid: "1655A0AB68576280"
-      keyserver: "https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key"
-    github-cli:
-      source: "deb [arch=amd64 signed-by=$KEY_FILE] https://cli.github.com/packages stable main"
-      keyid: "23F3D4EA75716059"
-      keyserver: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
-
 packages:
   - git
   - curl
@@ -21,37 +10,41 @@ packages:
   - unzip
   - ca-certificates
   - gnupg
-  - nodejs
-  - gh
-
-write_files:
-  - path: /root/.zshrc
-    append: true
-    defer: true
-    content: |
-
-      # Load environment variables from mounted secrets
-      set -a; source /root/secrets/.env; set +a
-
-      # Claude Code
-      export PATH="$HOME/.claude/local/bin:$PATH"
-
-      # uv (installed to ~/.local/bin)
-      export PATH="$HOME/.local/bin:$PATH"
-
-      # Fix GH_APP_PRIVATE_KEY_PATH for VM context
-      export GH_APP_PRIVATE_KEY_PATH="/root/secrets/vm-claude-agent.pem"
 
 runcmd:
   # Install tools not available via apt
+  - curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+  - apt-get install -y nodejs
+  - |
+    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+      | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" \
+      | tee /etc/apt/sources.list.d/github-cli.list
+    apt-get update
+    apt-get install -y gh
   - curl -LsSf https://astral.sh/uv/install.sh | sh
   - curl -fsSL https://claude.ai/install.sh | bash
   - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   # Configure shell and services
   - chsh -s /usr/bin/zsh root
   - |
+    cat > /etc/profile.d/vm-env.sh << 'EOF'
+    # Load environment variables from mounted secrets
+    set -a; source /root/secrets/.env; set +a
+
+    # Claude Code
+    export PATH="$HOME/.claude/local/bin:$PATH"
+
+    # uv (installed to ~/.local/bin)
+    export PATH="$HOME/.local/bin:$PATH"
+
+    # Fix GH_APP_PRIVATE_KEY_PATH for VM context
+    export GH_APP_PRIVATE_KEY_PATH="/root/secrets/vm-claude-agent.pem"
+    EOF
+  - echo 'emulate sh -c "source /etc/profile"' >> /etc/zsh/zprofile
+  - |
     # Wait for workspace mount
-    for i in $(seq 1 30); do
+    for i in $(seq 1 10); do
       mountpoint -q ${vm_mount_path} && break
       sleep 2
     done
