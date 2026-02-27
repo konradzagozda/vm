@@ -44,3 +44,10 @@ Infrastructure config will live in a dedicated directory separate from `claude_c
 - Every repetitive operation gets a Justfile target
 - VM dependency installation uses a script + package list file (not inline installs)
 - Claude Code is installed in the VM via: `curl -fsSL https://claude.ai/install.sh | bash`
+
+## PR and commit hygiene
+
+- Verify latest versions of dependencies (actions, hooks, packages) before writing config files — don't assume remembered versions are current
+- Include test evidence (command output) in PR descriptions so reviewers can verify without running locally
+- Keep commits scoped to the task — don't bundle unrelated changes into a task branch
+- Squash fix-up commits before merging so the main branch history stays clean
