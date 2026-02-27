@@ -9,6 +9,7 @@
             "Bash(cat *)",
             "Bash(git:*)",
             "mcp__context7",
+            "mcp__mcp-atlassian__jira_*",
             "WebSearch",
             "WebFetch"
         ],
