@@ -26,3 +26,25 @@ vm-ssh:
 
 vm-status:
     lxc list claude-dev --format=table
+
+# E2E validation: init, create VM, verify, destroy
+vm-test:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "==> Initializing..."
+    tofu -chdir=infra init -input=false
+    echo "==> Creating VM..."
+    tofu -chdir=infra apply -auto-approve -var="host_mount_path=$VM_HOST_MOUNT_PATH"
+    echo "==> Waiting for VM to settle..."
+    sleep 10
+    echo "==> Verifying VM is running..."
+    lxc list claude-dev --format=csv -c s | grep -q RUNNING
+    echo "==> Verifying mount..."
+    lxc exec claude-dev -- mountpoint -q /root/vm_projects
+    echo "==> Verifying network..."
+    lxc exec claude-dev -- ping -c 1 -W 5 archive.ubuntu.com
+    echo "==> VM info:"
+    lxc exec claude-dev -- uname -a
+    echo "==> Destroying VM..."
+    tofu -chdir=infra destroy -auto-approve -var="host_mount_path=$VM_HOST_MOUNT_PATH"
+    echo "==> All checks passed."

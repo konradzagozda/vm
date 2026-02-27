@@ -1,5 +1,13 @@
 #cloud-config
 package_update: true
+write_files:
+  - path: /opt/vm-setup/vm-packages.txt
+    content: |
+      ${indent(6, vm_packages)}
+  - path: /opt/vm-setup/vm-setup.sh
+    permissions: "0755"
+    content: |
+      ${indent(6, vm_setup_sh)}
 runcmd:
   - |
     # Wait for workspace mount
@@ -7,5 +15,5 @@ runcmd:
       mountpoint -q ${vm_mount_path} && break
       sleep 2
     done
-    # Run setup script from mounted workspace
-    bash ${vm_mount_path}/scripts/vm-setup.sh
+    # Run setup script
+    bash /opt/vm-setup/vm-setup.sh

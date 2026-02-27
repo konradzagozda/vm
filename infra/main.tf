@@ -1,6 +1,6 @@
 provider "lxd" {}
 
-resource "lxd_instance" "claude_dev" {
+resource "lxd_instance" "vm" {
   name  = var.vm_name
   image = var.ubuntu_image
   type  = "virtual-machine"
@@ -8,6 +8,8 @@ resource "lxd_instance" "claude_dev" {
   config = {
     "cloud-init.user-data" = templatefile("${path.module}/cloud-init.yml.tftpl", {
       vm_mount_path = var.vm_mount_path
+      vm_packages   = file("${path.module}/scripts/vm-packages.txt")
+      vm_setup_sh   = file("${path.module}/scripts/vm-setup.sh")
     })
   }
 
@@ -35,12 +37,15 @@ resource "lxd_instance" "claude_dev" {
     }
   }
 
+  # Attaches a virtual NIC to the VM via the LXD-managed bridge.
+  # lxdbr0 is the default bridge created by `lxd init`, providing
+  # NAT-based internet access and DHCP for the VM.
   device {
     name = "eth0"
     type = "nic"
     properties = {
-      name    = "eth0"
-      network = "lxdbr0"
+      name    = "eth0"    # Interface name inside the VM
+      network = "lxdbr0"  # LXD-managed bridge on the host
     }
   }
 }

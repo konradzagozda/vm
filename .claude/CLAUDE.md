@@ -10,12 +10,9 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 
 ## Key Files
 
-- `INTENT.md` — Single source of truth for project goals and requirements. Only the user edits this file.
 - `.env` / `.env.example` — Environment variables (secrets, app IDs). `.env` is gitignored.
-- `README.md` — Manual steps for loading env vars and launching Claude.
-- `claude_config/` — Project-specific Claude configuration (MCP setup, etc.)
-- `infra/` — OpenTofu configuration for VM provisioning (LXD provider, cloud-init template)
-- `scripts/vm-setup.sh` — VM package installation script (reads `scripts/vm-packages.txt`)
+- `README.md` — Prerequisites and usage instructions.
+- `infra/` — OpenTofu configuration for VM provisioning (LXD provider, cloud-init template, setup scripts)
 
 ## Commands
 
@@ -52,7 +49,6 @@ Host (Justfile, .env)
 - Secrets and environment-specific values go in `.env` (never committed)
 - Every repetitive operation gets a Justfile target
 - VM dependency installation uses a script + package list file (not inline installs)
-- Claude Code is installed in the VM via: `curl -fsSL https://claude.ai/install.sh | bash`
 
 ## PR and commit hygiene
 
