@@ -1,5 +1,6 @@
 git
 curl
+zsh
 jq
 build-essential
 unzip

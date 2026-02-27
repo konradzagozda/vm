@@ -39,7 +39,10 @@ just vm-test    # E2E validation (create, verify, destroy)
 Host (Justfile, .env)
   └── VM (OpenTofu → LXD/QEMU/KVM → Ubuntu 24.04)
        ├── Host dir mounted at /root/vm_projects (via LXD disk device)
-       └── Cloud-init embeds and runs vm-setup.sh via write_files on first boot
+       ├── Cloud-init embeds and runs vm-setup.sh via write_files on first boot
+       ├── .env vars forwarded into VM via cloud-init → /root/.env → sourced in .zshrc
+       ├── GitHub App private key copied into VM at /root/.keys/vm-claude-agent.pem
+       └── Shell: zsh + oh-my-zsh, Claude Code on PATH, gh CLI installed
 ```
 
 ## Conventions

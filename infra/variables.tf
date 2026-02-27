@@ -38,3 +38,8 @@ variable "ubuntu_image" {
   type        = string
   default     = "ubuntu:24.04"
 }
+
+variable "gh_app_private_key_path" {
+  description = "Path to the GitHub App private key file on the host"
+  type        = string
+}
