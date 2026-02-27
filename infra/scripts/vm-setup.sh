@@ -45,3 +45,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # Fix GH_APP_PRIVATE_KEY_PATH for VM context
 export GH_APP_PRIVATE_KEY_PATH="/root/secrets/vm-claude-agent.pem"
 ZSHRC
+
+# Register MCP servers (user-scoped — available in all projects)
+export PATH="/root/.claude/local/bin:/root/.local/bin:$PATH"
+claude mcp add --scope user context7 -- npx -y @upstash/context7-mcp@latest
+claude mcp add --scope user mcp-atlassian -- uvx mcp-atlassian
+claude mcp add --scope user ElevenLabs -- uvx elevenlabs-mcp
