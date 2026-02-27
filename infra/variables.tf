@@ -5,19 +5,19 @@ variable "vm_name" {
 }
 
 variable "cpus" {
-  description = "Number of CPUs allocated to the VM"
+  description = "Number of CPUs for the VM (2 is minimum for comfortable builds)"
   type        = number
   default     = 2
 }
 
 variable "memory" {
-  description = "Memory allocated to the VM"
+  description = "VM memory (4GiB is minimum for Claude Code + build tools)"
   type        = string
   default     = "4GiB"
 }
 
 variable "disk_size" {
-  description = "Root disk size for the VM"
+  description = "Root disk size (20GiB covers OS + packages + workspace)"
   type        = string
   default     = "20GiB"
 }
