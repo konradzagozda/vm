@@ -4,6 +4,8 @@ brew "direnv"
 brew "gcc"
 # Rainbows and unicorns in your console!
 brew "lolcat"
+# GitHub command-line tool
+brew "gh"
 # Framework for managing multi-language pre-commit hooks
 brew "pre-commit"
 vscode "donjayamanne.githistory"
