@@ -1,3 +1,4 @@
-INTENT.md
+.prompt.md
 .env
+.claude/settings.local.json
 .claude/log/commands.jsonl
