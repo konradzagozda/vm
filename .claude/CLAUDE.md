@@ -10,9 +10,10 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 
 ## Key Files
 
-- `secrets/` — Contains `.env`, `.env.example`, and private keys. Gitignored, mounted into VM at `/root/secrets`.
+- `secrets/` — Contains `.env` and private keys (gitignored except `.env.example`), mounted into VM at `/root/secrets`.
+- `secrets/.env.example` — Template for required environment variables (tracked in git).
 - `README.md` — Prerequisites and usage instructions.
-- `infra/` — OpenTofu configuration for VM provisioning (LXD provider, cloud-init template, setup scripts)
+- `infra/` — OpenTofu configuration for VM provisioning (LXD provider, cloud-init template)
 - `infra/scripts/vm-test.sh` — E2E validation script (used by `just vm-test`)
 
 ## Commands
@@ -38,7 +39,7 @@ Host (Justfile, secrets/)
   └── VM (OpenTofu → LXD/QEMU/KVM → Ubuntu 24.04)
        ├── Host dir mounted at /root/vm_projects (via LXD disk device)
        ├── secrets/ mounted at /root/secrets (live — edits on host reflect in VM)
-       ├── Cloud-init embeds and runs vm-setup.sh via write_files on first boot
+       ├── Cloud-init native modules: packages, apt sources, write_files, runcmd
        ├── Shell: zsh + oh-my-zsh, Claude Code on PATH, gh CLI installed
        └── MCP servers: context7 (npx), mcp-atlassian (uvx), ElevenLabs
 ```
@@ -47,7 +48,7 @@ Host (Justfile, secrets/)
 
 - Secrets and environment-specific values go in `secrets/.env` (never committed)
 - Every repetitive operation gets a Justfile target
-- VM dependency installation uses a script + package list file (not inline installs)
+- VM provisioning uses cloud-init native modules (packages, apt sources) over shell scripts
 
 ## PR and commit hygiene
 
