@@ -1,0 +1,7 @@
+git
+curl
+jq
+build-essential
+unzip
+ca-certificates
+gnupg

@@ -14,6 +14,8 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 - `.env` / `.env.example` — Environment variables (secrets, app IDs). `.env` is gitignored.
 - `README.md` — Manual steps for loading env vars and launching Claude.
 - `claude_config/` — Project-specific Claude configuration (MCP setup, etc.)
+- `infra/` — OpenTofu configuration for VM provisioning (LXD provider, cloud-init template)
+- `scripts/vm-setup.sh` — VM package installation script (reads `scripts/vm-packages.txt`)
 
 ## Commands
 
@@ -24,6 +26,14 @@ set -a && source .env && set +a
 # Authenticate GitHub CLI as the bot app
 just gh-setup
 
+# VM lifecycle
+just vm-init    # Download OpenTofu providers (once)
+just vm-plan    # Preview changes
+just vm-up      # Create/update VM
+just vm-down    # Destroy VM
+just vm-ssh     # Shell into VM as root
+just vm-status  # Show VM status
+
 # Launch Claude Code
 claude
 ```
@@ -32,12 +42,10 @@ claude
 
 ```
 Host (Justfile, .env)
-  └── VM (OpenTofu → LXD/QEMU/KVM → Ubuntu minimal)
-       ├── Mounted host directory (shared workspace)
-       └── Claude Code (native installer)
+  └── VM (OpenTofu → LXD/QEMU/KVM → Ubuntu 24.04)
+       ├── Host dir mounted at /root/vm_projects (via LXD disk device)
+       └── Cloud-init runs vm-setup.sh from mount on first boot
 ```
-
-Infrastructure config will live in a dedicated directory separate from `claude_config/`.
 
 ## Conventions
 
