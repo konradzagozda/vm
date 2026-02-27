@@ -16,7 +16,7 @@
             "Bash(curl *)",
             "Bash(wget *)"
         ],
-        "defaultMode": "default"
+        "defaultMode": "plan"
     },
     "availableModels": [
         "sonnet",
