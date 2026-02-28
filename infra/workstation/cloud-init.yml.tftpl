@@ -24,11 +24,11 @@ runcmd:
       mountpoint -q ${vm_mount_path} && break
       sleep 2
     done
-  - /root/projects/vm_dev/infra/workstation/scripts/install_nodejs.sh
-  - /root/projects/vm_dev/infra/common/scripts/install_gh_cli.sh
-  - /root/projects/vm_dev/infra/common/scripts/install_gh_token.sh
-  - /root/projects/vm_dev/infra/workstation/scripts/install_uv.sh
-  - /root/projects/vm_dev/infra/workstation/scripts/install_claude_code.sh
-  - /root/projects/vm_dev/infra/workstation/scripts/install_ohmyzsh.sh
-  - /root/projects/vm_dev/infra/workstation/scripts/setup_shell.sh
-  - /root/projects/vm_dev/infra/workstation/scripts/setup_mcp.sh
+  - bash /root/projects/vm_dev/infra/workstation/scripts/install_nodejs.sh
+  - bash /root/projects/vm_dev/infra/common/scripts/install_gh_cli.sh
+  - bash /root/projects/vm_dev/infra/common/scripts/install_gh_token.sh
+  - bash /root/projects/vm_dev/infra/workstation/scripts/install_uv.sh
+  - bash /root/projects/vm_dev/infra/workstation/scripts/install_claude_code.sh
+  - bash /root/projects/vm_dev/infra/workstation/scripts/install_ohmyzsh.sh
+  - bash /root/projects/vm_dev/infra/workstation/scripts/setup_shell.sh
+  - bash /root/projects/vm_dev/infra/workstation/scripts/setup_mcp.sh

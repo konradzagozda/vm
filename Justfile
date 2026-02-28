@@ -48,7 +48,7 @@ e2e-down:
       -var="host_mount_path=$VM_HOST_MOUNT_PATH"
 
 e2e-ssh:
-    incus exec e2e_test_runner -- sudo --login --user root
+    incus exec e2e-test-runner -- sudo --login --user root
 
 e2e-test:
     bash infra/bare_metal/tests/e2e.sh
