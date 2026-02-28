@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # KAN-21: Replace Zabbly repo with Incus install from source
 set -eu
-. /etc/tool-versions
+. /etc/tool-versions.env
 
 curl -fsSL https://pkgs.zabbly.com/key.asc \
   | gpg --dearmor -o /usr/share/keyrings/zabbly.gpg

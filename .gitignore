@@ -2,7 +2,6 @@ secrets/*
 !secrets/.env.example
 .claude/settings.local.json
 .claude/log/commands.jsonl
-infra/.terraform/
+infra/tf/.terraform/
 .terraform/
 *.tfstate*
-infra/terraform.tfstate*
