@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Configure MCP servers for Claude Code.
- *
- * Example:
- *   ./setup_mcp.sh
- *
- * Environment:
- *   PATH — must include claude binary
- */
+# Configure MCP servers for Claude Code.
+#
+# Example:
+#   ./setup_mcp.sh
+#
+# Environment:
+#   PATH — must include claude binary
 
 export PATH="/root/.claude/local/bin:/root/.local/bin:$PATH"
 

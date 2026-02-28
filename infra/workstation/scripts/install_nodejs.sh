@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Install Node.js via NodeSource.
- *
- * Example:
- *   ./install_nodejs.sh
- *
- * Environment:
- *   NODEJS_VERSION — required, from /etc/tool-versions.env (e.g. "lts")
- */
+# Install Node.js via NodeSource.
+#
+# Example:
+#   ./install_nodejs.sh
+#
+# Environment:
+#   NODEJS_VERSION — required, from /etc/tool-versions.env (e.g. "lts")
 
 . /etc/tool-versions.env
 

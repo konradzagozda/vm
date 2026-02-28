@@ -1,17 +1,15 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Create workstation VM inside e2e_test_runner, validate, destroy.
- * Runs inside e2e_test_runner via `just workstation-setup-test`.
- *
- * Example:
- *   just workstation-setup-test
- *
- * Environment:
- *   VM_HOST_MOUNT_PATH   — optional, default /root/projects
- *   VM_HOST_SECRETS_PATH — optional, default /root/projects/vm_dev/infra/bare_metal/secrets
- */
+# Create workstation VM inside e2e_test_runner, validate, destroy.
+# Runs inside e2e_test_runner via `just workstation-setup-test`.
+#
+# Example:
+#   just workstation-setup-test
+#
+# Environment:
+#   VM_HOST_MOUNT_PATH   — optional, default /root/projects
+#   VM_HOST_SECRETS_PATH — optional, default /root/projects/vm_dev/infra/bare_metal/secrets
 
 VM_HOST_MOUNT_PATH="${VM_HOST_MOUNT_PATH:-/root/projects}"
 VM_HOST_SECRETS_PATH="${VM_HOST_SECRETS_PATH:-/root/projects/vm_dev/infra/bare_metal/secrets}"

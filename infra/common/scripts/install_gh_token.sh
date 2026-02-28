@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Install gh-token standalone binary.
- *
- * Example:
- *   ./install_gh_token.sh
- *
- * Environment:
- *   GH_TOKEN_VERSION — required, from /etc/tool-versions.env
- */
+# Install gh-token standalone binary.
+#
+# Example:
+#   ./install_gh_token.sh
+#
+# Environment:
+#   GH_TOKEN_VERSION — required, from /etc/tool-versions.env
 
 . /etc/tool-versions.env
 

@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Add Zabbly apt repo, install and initialize Incus.
- * KAN-21: Replace Zabbly repo with install from source.
- *
- * Example:
- *   ./setup_incus.sh
- *
- * Environment:
- *   INCUS_VERSION — required, from /etc/tool-versions.env
- */
+# Add Zabbly apt repo, install and initialize Incus.
+# KAN-21: Replace Zabbly repo with install from source.
+#
+# Example:
+#   ./setup_incus.sh
+#
+# Environment:
+#   INCUS_VERSION — required, from /etc/tool-versions.env
 
 . /etc/tool-versions.env
 

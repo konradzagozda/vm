@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Install OpenTofu via the official standalone installer.
- *
- * Example:
- *   ./install_opentofu.sh
- *
- * Environment:
- *   OPENTOFU_VERSION — required, from /etc/tool-versions.env
- */
+# Install OpenTofu via the official standalone installer.
+#
+# Example:
+#   ./install_opentofu.sh
+#
+# Environment:
+#   OPENTOFU_VERSION — required, from /etc/tool-versions.env
 
 . /etc/tool-versions.env
 

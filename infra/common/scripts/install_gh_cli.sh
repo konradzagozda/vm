@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Install GitHub CLI from precompiled binaries.
- *
- * Example:
- *   ./install_gh_cli.sh
- *
- * Environment:
- *   GH_CLI_VERSION — required, from /etc/tool-versions.env
- */
+# Install GitHub CLI from precompiled binaries.
+#
+# Example:
+#   ./install_gh_cli.sh
+#
+# Environment:
+#   GH_CLI_VERSION — required, from /etc/tool-versions.env
 
 . /etc/tool-versions.env
 
