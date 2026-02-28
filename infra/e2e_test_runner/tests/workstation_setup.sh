@@ -58,14 +58,16 @@ echo "==> Verifying Claude Code..."
 incus exec workstation -- zsh -lc "claude --version"
 
 echo "==> Verifying git identity vars..."
-incus exec workstation -- zsh -lc "env | grep GIT"
+incus exec workstation -- zsh -lc "test -n \"\$GIT_AUTHOR_NAME\""
+incus exec workstation -- zsh -lc "test -n \"\$GIT_AUTHOR_EMAIL\""
+incus exec workstation -- zsh -lc "test -n \"\$GIT_COMMITTER_NAME\""
+incus exec workstation -- zsh -lc "test -n \"\$GIT_COMMITTER_EMAIL\""
 
 echo "==> Verifying Jira vars..."
-incus exec workstation -- zsh -lc "env | grep JIRA"
+incus exec workstation -- zsh -lc "test -n \"\$JIRA_URL\""
 
-echo "==> Verifying gh auth..."
-incus exec workstation -- zsh -lc "bash -" < infra/common/scripts/gh_setup.sh
-incus exec workstation -- zsh -lc "gh auth status"
+echo "==> Verifying GH app key file..."
+incus exec workstation -- zsh -lc "test -f \"\$GH_APP_PRIVATE_KEY_PATH\""
 
 echo "==> VM info:"
 incus exec workstation -- uname -a
