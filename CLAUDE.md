@@ -20,8 +20,8 @@ Isolated VM-based development environment for Claude Code. A bare-metal director
 
 - [`README.md`](README.md) — Setup instructions
 - [`.claude/rules/`](.claude/rules/) — Code style rules (auto-matched by file pattern)
-- [`docs/STYLE_GUIDE.md`](docs/STYLE_GUIDE.md) — Project-specific style (version pinning, glossary)
-- [`docs/FILE_TREE.md`](docs/FILE_TREE.md) — File tree
+- [`docs/style_guide.md`](docs/style_guide.md) — Project-specific style (version pinning, glossary)
+- [`docs/file_tree.md`](docs/file_tree.md) — File tree
 
 ## Commands
 
@@ -54,7 +54,7 @@ Bare-metal (Justfile, infra/secrets/)
 - Environment-specific values go in `.env` at project root (never committed)
 - Every repetitive operation gets a Justfile target
 - Workstation provisioning uses cloud-init native modules over scripts
-- Versions pinned explicitly — see `docs/STYLE_GUIDE.md`
+- Versions pinned explicitly — see `docs/style_guide.md`
 
 ## PR and commit hygiene
 
