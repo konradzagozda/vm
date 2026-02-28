@@ -7,13 +7,13 @@ TOFU_VARS=(
 )
 
 echo "==> Initializing..."
-tofu -chdir=infra init -input=false
+tofu -chdir=infra/tf init -input=false
 
 echo "==> Destroying existing VM (if any)..."
-tofu -chdir=infra destroy -auto-approve "${TOFU_VARS[@]}"
+tofu -chdir=infra/tf destroy -auto-approve "${TOFU_VARS[@]}"
 
 echo "==> Creating VM..."
-tofu -chdir=infra apply -auto-approve "${TOFU_VARS[@]}"
+tofu -chdir=infra/tf apply -auto-approve "${TOFU_VARS[@]}"
 
 echo "==> Waiting for cloud-init to complete..."
 incus exec workstation -- cloud-init status --wait

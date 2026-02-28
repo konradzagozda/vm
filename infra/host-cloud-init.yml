@@ -11,7 +11,7 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
 
 write_files:
-  - path: /etc/tool-versions
+  - path: /etc/tool-versions.env
     content: |
       INCUS_PIN=6.22
       OPENTOFU_VERSION=1.9.0
@@ -20,7 +20,7 @@ write_files:
   - path: /etc/profile.d/tool-versions.sh
     content: |
       set -a
-      . /etc/tool-versions
+      . /etc/tool-versions.env
       set +a
   - path: /etc/incus/init-config.yaml
     content: |

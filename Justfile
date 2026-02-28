@@ -7,20 +7,20 @@ gh-setup:
 
 # VM Provisioning
 vm-init:
-    tofu -chdir=infra init
+    tofu -chdir=infra/tf init
 
 vm-plan:
-    tofu -chdir=infra plan \
+    tofu -chdir=infra/tf plan \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
       -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 
 vm-up:
-    tofu -chdir=infra apply -auto-approve \
+    tofu -chdir=infra/tf apply -auto-approve \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
       -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 
 vm-down:
-    tofu -chdir=infra destroy -auto-approve \
+    tofu -chdir=infra/tf destroy -auto-approve \
       -var="host_mount_path=$VM_HOST_MOUNT_PATH" \
       -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 

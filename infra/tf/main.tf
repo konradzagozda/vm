@@ -6,7 +6,7 @@ resource "incus_instance" "vm" {
   type  = "virtual-machine"
 
   config = {
-    "cloud-init.user-data" = templatefile("${path.module}/cloud-init.yml.tftpl", {
+    "cloud-init.user-data" = templatefile("${path.module}/../cloud-init.yml.tftpl", {
       vm_mount_path = var.vm_mount_path
     })
     "limits.cpu"    = var.cpus

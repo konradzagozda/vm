@@ -1,25 +1,17 @@
-# Style Guide
+# Project Style Guide
 
-## Comments
-
-Write comments as a single line regardless of length (KAN-22: configure editor line wrap). No multi-line comment blocks for simple explanations. Only comment *why*, not *what* — the code should be self-explanatory.
+Project-specific conventions that extend the [general style guide](../.claude/rules/style-guide.md).
 
 ## Version pinning
 
-Pin all dependency versions explicitly. Centralize pins in `infra/tool-versions` so there is one place to update. Use environment variables (not hardcoded strings) when referencing versions in scripts.
+Pin all dependency versions explicitly. Centralize pins in `infra/tool-versions.env` so there is one place to update. Use environment variables (not hardcoded strings) when referencing versions in scripts.
 
-## Scripts
+## Naming
 
-Each tool installation or configuration step should be its own script if no default package manager repository allows installation. Scripts should:
+Three distinct machine roles in this project:
 
-- Start with `#!/usr/bin/env bash` and `set -eu`
-- Source `/etc/tool-versions` when they need version variables
-- Have a one-line comment describing their purpose
-
-## Cloud-init
-
-Use cloud-init native modules (`packages`, `users`, `groups`, `write_files`) where possible. Use `runcmd` only for operations that have no native module equivalent. Reference scripts from mounted paths rather than embedding content inline.
-
-## Terraform / OpenTofu
-
-Use inline comments sparingly — one line above the block they describe. Avoid trailing comments on resource properties unless they add significant clarity.
+| Name | Role |
+|------|------|
+| **bare-metal** | The physical host machine running Incus |
+| **workstation** | The dev VM where Claude Code runs |
+| **ci-runner** | Ephemeral VM spun up to test the provisioning flow end-to-end |
