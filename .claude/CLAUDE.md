@@ -6,19 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Isolated VM-based development environment designed for Claude Code usage. A configurable host directory is mounted into the VM so Claude can work inside the VM while files live on the host machine.
 
-**Tech stack:** Incus/QEMU/KVM (virtualization), OpenTofu (IaC), Ubuntu 24.04 (VM OS), Justfile (task runner), pre-commit + gitleaks (hooks).
+**Tech stack:** Incus/QEMU/KVM (virtualization), OpenTofu (IaC), Ubuntu 24.04 (VM OS), Justfile (task runner), pre-commit (hooks).
 
-## Key Files
+## Reference Docs
 
-- `secrets/` — Contains `.env` and private keys (gitignored except `.env.example`), mounted into VM at `/root/secrets`.
-- `secrets/.env.example` — Template for required environment variables (tracked in git).
-- `README.md` — Prerequisites and usage instructions.
-- `infra/` — OpenTofu configuration for VM provisioning (Incus provider, cloud-init template)
-- `infra/tool-versions` — Centralized version pins for host provisioning tools
-- `infra/host-cloud-init.yml` — Cloud-init config for host provisioning (Incus, OpenTofu, gh CLI)
-- `infra/scripts/gh-setup.sh` — Shared GitHub App auth script (works on host and in VM)
-- `infra/scripts/host/` — Host provisioning scripts called by host-cloud-init.yml runcmd
-- `infra/scripts/vm-test.sh` — E2E validation script (used by `just vm-test`)
+- [`docs/STYLE_GUIDE.md`](../docs/STYLE_GUIDE.md) — Code style conventions (comments, version pinning, scripts, cloud-init, Terraform)
+- [`docs/FILE_TREE.md`](../docs/FILE_TREE.md) — Annotated file tree with purpose of each file
 
 ## Commands
 
@@ -33,8 +26,7 @@ just vm-up      # Create/update VM
 just vm-down    # Destroy VM
 just vm-ssh     # Shell into VM as root
 just vm-status  # Show VM status
-just vm-test    # E2E validation (destroy, create, verify — leaves VM running)
-just scan-history  # Scan full git history for leaked secrets (gitleaks)
+just vm-test    # E2E validation (create, verify, destroy)
 ```
 
 ## Architecture
@@ -44,9 +36,8 @@ Host (Justfile, secrets/)
   └── VM (OpenTofu → Incus/QEMU/KVM → Ubuntu 24.04)
        ├── Host dir mounted at /root/projects (via Incus disk device)
        ├── secrets/ mounted at /root/secrets (live — edits on host reflect in VM)
-       ├── Cloud-init runcmd: NodeSource, gh CLI repo, gh-token, uv, Claude Code, oh-my-zsh
-       ├── /etc/profile.d/vm-env.sh: PATH, secrets/.env, git identity (all login shells)
-       ├── Shell: zsh + oh-my-zsh (default), gh CLI + gh-token on PATH
+       ├── Cloud-init native modules: packages, apt sources, write_files, runcmd
+       ├── Shell: zsh + oh-my-zsh, Claude Code on PATH, gh CLI installed
        └── MCP servers: context7 (npx), mcp-atlassian (uvx), ElevenLabs
 ```
 
@@ -55,12 +46,6 @@ Host (Justfile, secrets/)
 - Secrets and environment-specific values go in `secrets/.env` (never committed)
 - Every repetitive operation gets a Justfile target
 - VM provisioning uses cloud-init native modules (packages, apt sources) over shell scripts
-
-## Style Guide
-
-- Comments should be single-line and concise — no multi-line comment blocks for simple explanations
-- Each tool installation or configuration step should be its own script, not inlined in cloud-init runcmd
-- Host provisioning scripts go in `infra/scripts/host/`, VM scripts in `infra/scripts/`
 
 ## PR and commit hygiene
 
