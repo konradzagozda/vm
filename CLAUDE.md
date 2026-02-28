@@ -19,8 +19,7 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 ## Reference Docs
 
 - [`README.md`](README.md) — Project purpose and setup instructions
-- [`.claude/rules/style-guide.md`](.claude/rules/style-guide.md) — General code style (comments, scripts, cloud-init)
-- [`.claude/rules/terraform.md`](.claude/rules/terraform.md) — Terraform/OpenTofu conventions
+- [`.claude/rules/`](.claude/rules/) — Code style rules (auto-matched by file pattern)
 - [`docs/STYLE_GUIDE.md`](docs/STYLE_GUIDE.md) — Project-specific style (version pinning, naming)
 - [`docs/FILE_TREE.md`](docs/FILE_TREE.md) — Annotated file tree
 
