@@ -35,7 +35,7 @@ runcmd:
   - |
     cat > /etc/profile.d/vm-env.sh << 'EOF'
     # Load environment variables from mounted secrets
-    set -a; source /root/secrets/.env; set +a
+    set -a; source /root/envs/.env; set +a
 
     # Claude Code
     export PATH="$HOME/.claude/local/bin:$PATH"
@@ -44,7 +44,7 @@ runcmd:
     export PATH="$HOME/.local/bin:$PATH"
 
     # Fix GH_APP_PRIVATE_KEY_PATH for VM context
-    export GH_APP_PRIVATE_KEY_PATH="/root/secrets/vm-claude-agent.pem"
+    export GH_APP_PRIVATE_KEY_PATH="/root/envs/vm-claude-agent.pem"
     EOF
   - echo 'emulate sh -c "source /etc/profile"' >> /etc/zsh/zprofile
   - |

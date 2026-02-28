@@ -13,5 +13,5 @@ repos:
         name: Validate cloud-init configs
         language: system
         entry: cloud-init schema --annotate -c
-        files: host-cloud-init\.yml$
+        files: e2e-validator\.cloud-init\.yml$
         types: [yaml]

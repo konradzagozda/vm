@@ -3,23 +3,22 @@ paths:
   - "**/*.sh"
 ---
 
-Every script starts with `#!/usr/bin/env bash`, `set -euo pipefail`, and `set -x` on the next line.
+Every script starts with `#!/usr/bin/env bash` and `set -euox pipefail`.
 
 Use environment variables over args and opts.
 
-## Docblock
+## Doc
 
 Every script has a top-level block comment:
 
 1. Purpose
-2. Example — exactly one invocation, more beneath Usage
+2. Example — exactly one, more beneath Usage
 3. Environment — required and optional vars
 4. Usage — flags, options
 
 ```bash
 #!/usr/bin/env bash
-set -euo pipefail
-set -x
+set -euox pipefail
 
 /*
  * Install GitHub CLI from precompiled binaries.
