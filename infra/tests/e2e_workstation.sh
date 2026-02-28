@@ -4,7 +4,7 @@ set -x
 
 TOFU_VARS=(
   -var="host_mount_path=$VM_HOST_MOUNT_PATH"
-  -var="host_envs_path=$VM_HOST_ENVS_PATH"
+  -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 )
 
 echo "==> Initializing..."
@@ -25,8 +25,8 @@ incus list workstation --format=csv -c s | grep -q RUNNING
 echo "==> Verifying mount..."
 incus exec workstation -- mountpoint -q /root/projects
 
-echo "==> Verifying envs mount..."
-incus exec workstation -- test -f /root/envs/.env
+echo "==> Verifying secrets mount..."
+incus exec workstation -- test -f /root/secrets/.env
 
 echo "==> Verifying network..."
 incus exec workstation -- ping -c 1 -W 5 archive.ubuntu.com
@@ -41,7 +41,7 @@ echo "==> Verifying Jira vars..."
 incus exec workstation -- zsh -lc "env | grep JIRA"
 
 echo "==> Verifying gh auth..."
-incus exec workstation -- zsh -lc "bash -" < infra/scripts/gh-setup.sh
+incus exec workstation -- zsh -lc "bash -" < infra/scripts/gh_setup.sh
 incus exec workstation -- zsh -lc "gh auth status"
 
 echo "==> VM info:"

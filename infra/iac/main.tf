@@ -6,7 +6,7 @@ resource "incus_instance" "vm" {
   type  = "virtual-machine"
 
   config = {
-    "cloud-init.user-data" = templatefile("${path.module}/../workstation.cloud-init.yml.tftpl", {
+    "cloud-init.user-data" = templatefile("${path.module}/../workstation.cloud_init.yml.tftpl", {
       vm_mount_path = var.vm_mount_path
     })
     "limits.cpu"    = var.cpus
@@ -33,11 +33,11 @@ resource "incus_instance" "vm" {
   }
 
   device {
-    name = "envs"
+    name = "secrets"
     type = "disk"
     properties = {
-      source = var.host_envs_path
-      path   = "/root/envs"
+      source = var.host_secrets_path
+      path   = "/root/secrets"
     }
   }
 

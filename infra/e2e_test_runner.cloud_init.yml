@@ -57,7 +57,7 @@ packages:
   - just
 
 runcmd:
-  - /root/projects/vm_dev/infra/scripts/host/setup-incus.sh
-  - /root/projects/vm_dev/infra/scripts/host/install-opentofu.sh
-  - /root/projects/vm_dev/infra/scripts/host/install-gh-cli.sh
-  - /root/projects/vm_dev/infra/scripts/host/install-gh-token.sh
+  - /root/projects/vm_dev/infra/scripts/host/setup_incus.sh
+  - /root/projects/vm_dev/infra/scripts/host/install_opentofu.sh
+  - /root/projects/vm_dev/infra/scripts/host/install_gh_cli.sh
+  - /root/projects/vm_dev/infra/scripts/host/install_gh_token.sh
