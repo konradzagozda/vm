@@ -4,6 +4,8 @@
 ├── README.md
 ├── infra/
 │   ├── e2e_test_runner.cloud_init.yml
+│   ├── host-cloud-init.yml
+│   ├── tool-versions
 │   ├── workstation.cloud_init.yml.tftpl
 │   ├── envs/
 │   │   ├── bare_metal.example.env

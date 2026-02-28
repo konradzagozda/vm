@@ -9,7 +9,7 @@ Isolated VM-based development environment for Claude Code. A bare-metal director
    sudo usermod -aG incus-admin $USER
    incus admin init --minimal
    ```
-   For automated bare-metal setup, see `infra/e2e_test_runner.cloud_init.yml`.
+   For automated bare-metal setup, see `infra/host-cloud-init.yml`.
 
 2. **Install OpenTofu:** [opentofu.org/docs/intro/install](https://opentofu.org/docs/intro/install/)
 

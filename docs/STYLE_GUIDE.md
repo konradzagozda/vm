@@ -1,6 +1,6 @@
 ## Version pinning
 
-Pin all dependency versions explicitly. Centralize pins in `infra/tools/` env files. Use environment variables (not hardcoded strings) when referencing versions in scripts.
+Pin all dependency versions explicitly. Centralize pins in `infra/tool-versions`. Use environment variables (not hardcoded strings) when referencing versions in scripts.
 
 ## Glossary
 
