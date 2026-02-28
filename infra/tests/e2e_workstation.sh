@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
-set -euo pipefail
-set -x
+set -euox pipefail
+
+/*
+ * End-to-end validation of workstation VM provisioning.
+ * Runs inside e2e_test_runner: init, destroy, create, verify.
+ *
+ * Example:
+ *   just vm-test
+ *
+ * Environment:
+ *   VM_HOST_MOUNT_PATH   — optional, default /root/projects
+ *   VM_HOST_SECRETS_PATH — optional, default /root/projects/vm_dev/infra/secrets
+ */
+
+VM_HOST_MOUNT_PATH="${VM_HOST_MOUNT_PATH:-/root/projects}"
+VM_HOST_SECRETS_PATH="${VM_HOST_SECRETS_PATH:-/root/projects/vm_dev/infra/secrets}"
 
 TOFU_VARS=(
   -var="host_mount_path=$VM_HOST_MOUNT_PATH"
@@ -8,13 +22,13 @@ TOFU_VARS=(
 )
 
 echo "==> Initializing..."
-tofu -chdir=infra/iac init -input=false
+tofu -chdir=infra/iac/workstation init -input=false -lockfile=readonly
 
 echo "==> Destroying existing VM (if any)..."
-tofu -chdir=infra/iac destroy -auto-approve "${TOFU_VARS[@]}"
+tofu -chdir=infra/iac/workstation destroy -auto-approve "${TOFU_VARS[@]}"
 
 echo "==> Creating VM..."
-tofu -chdir=infra/iac apply -auto-approve "${TOFU_VARS[@]}"
+tofu -chdir=infra/iac/workstation apply -auto-approve "${TOFU_VARS[@]}"
 
 echo "==> Waiting for cloud-init to complete..."
 incus exec workstation -- cloud-init status --wait

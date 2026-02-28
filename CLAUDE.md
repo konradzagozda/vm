@@ -26,15 +26,21 @@ Isolated VM-based development environment for Claude Code. A bare-metal director
 ## Commands
 
 ```bash
-just prepare-env # Copy example configs to working locations
-just gh-setup    # GitHub App auth
-just vm-init     # Download OpenTofu providers (once)
-just vm-plan     # Preview changes
-just vm-up       # Create or update workstation
-just vm-down     # Destroy workstation
-just vm-ssh      # Shell into workstation as root
-just vm-status   # Show workstation status
-just vm-test     # E2E validation
+just prepare-env  # Copy example configs to working locations
+just gh-setup     # GitHub App auth
+just vm-init      # Download OpenTofu providers (once)
+just vm-plan      # Preview changes
+just vm-up        # Create or update workstation
+just vm-down      # Destroy workstation
+just vm-ssh       # Shell into workstation as root
+just vm-status    # Show workstation status
+just vm-test      # E2E validation (run inside e2e_test_runner)
+just e2e-init     # Download OpenTofu providers for e2e
+just e2e-up       # Create e2e_test_runner VM
+just e2e-down     # Destroy e2e_test_runner VM
+just e2e-ssh      # Shell into e2e_test_runner as root
+just e2e-test     # Run full e2e validation from bare-metal
+just update-lock  # Upgrade provider lock files
 ```
 
 ## Architecture
