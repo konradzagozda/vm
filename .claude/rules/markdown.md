@@ -14,3 +14,5 @@ Skip headings for very short sections (one or two sentences).
 Be concise. Use abbreviations where unambiguous (e.g., i.e., etc.). Do not overexplain — make safe assumptions about what the reader knows.
 
 Do not use ambiguous punctuation, e.g. `;`, `+`. Use words: "or", "and".
+
+Avoid tables — use lists or prose.

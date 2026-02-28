@@ -22,6 +22,8 @@ write_files:
       set -a
       . /etc/tool-versions.env
       set +a
+      export TF_PLUGIN_CACHE_DIR=/tmp/tofu-plugin-cache
+      mkdir -p "$TF_PLUGIN_CACHE_DIR"
   - path: /etc/incus/init-config.yaml
     content: |
       config: {}
@@ -56,6 +58,7 @@ packages:
   - gpg
   - just
   - unzip
+  - rsync
 
 runcmd:
   - |
