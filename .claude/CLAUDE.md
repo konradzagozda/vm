@@ -17,6 +17,7 @@ Isolated VM-based development environment designed for Claude Code usage. A conf
 - `infra/tool-versions` — Centralized version pins for host provisioning tools
 - `infra/host-cloud-init.yml` — Cloud-init config for host provisioning (Incus, OpenTofu, gh CLI)
 - `infra/scripts/gh-setup.sh` — Shared GitHub App auth script (works on host and in VM)
+- `infra/scripts/host/` — Host provisioning scripts called by host-cloud-init.yml runcmd
 - `infra/scripts/vm-test.sh` — E2E validation script (used by `just vm-test`)
 
 ## Commands
@@ -41,7 +42,7 @@ just scan-history  # Scan full git history for leaked secrets (gitleaks)
 ```
 Host (Justfile, secrets/)
   └── VM (OpenTofu → Incus/QEMU/KVM → Ubuntu 24.04)
-       ├── Host dir mounted at /root/vm_projects (via Incus disk device)
+       ├── Host dir mounted at /root/projects (via Incus disk device)
        ├── secrets/ mounted at /root/secrets (live — edits on host reflect in VM)
        ├── Cloud-init runcmd: NodeSource, gh CLI repo, gh-token, uv, Claude Code, oh-my-zsh
        ├── /etc/profile.d/vm-env.sh: PATH, secrets/.env, git identity (all login shells)
@@ -54,6 +55,12 @@ Host (Justfile, secrets/)
 - Secrets and environment-specific values go in `secrets/.env` (never committed)
 - Every repetitive operation gets a Justfile target
 - VM provisioning uses cloud-init native modules (packages, apt sources) over shell scripts
+
+## Style Guide
+
+- Comments should be single-line and concise — no multi-line comment blocks for simple explanations
+- Each tool installation or configuration step should be its own script, not inlined in cloud-init runcmd
+- Host provisioning scripts go in `infra/scripts/host/`, VM scripts in `infra/scripts/`
 
 ## PR and commit hygiene
 

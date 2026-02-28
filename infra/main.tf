@@ -41,15 +41,13 @@ resource "incus_instance" "vm" {
     }
   }
 
-  # Attaches a virtual NIC to the VM via the Incus-managed bridge.
-  # incusbr0 is the default bridge created by `incus admin init`, providing
-  # NAT-based internet access and DHCP for the VM.
+  # Virtual NIC attached to the Incus-managed bridge (incusbr0) for NAT internet access
   device {
     name = "eth0"
     type = "nic"
     properties = {
-      name    = "eth0"       # Interface name inside the VM
-      network = "incusbr0"   # Incus-managed bridge on the host
+      name    = "eth0"
+      network = "incusbr0"
     }
   }
 }
