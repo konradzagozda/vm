@@ -2,8 +2,8 @@ set dotenv-filename := ".env"
 
 prepare-env:
     cp infra/secrets/.env.example .env
-    cp infra/secrets/key.example.pem infra/secrets/key.pem
-    @echo "Edit .env and infra/secrets/key.pem with your values"
+    cp infra/secrets/gh_app_key.example.pem infra/secrets/gh_app_key.pem
+    @echo "Edit .env and infra/secrets/gh_app_key.pem with your values"
 
 gh-setup:
     bash infra/scripts/gh_setup.sh
