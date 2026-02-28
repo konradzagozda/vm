@@ -15,4 +15,4 @@ e.g. cloud-init.
 
 ## Infrastructure as Code
 
-Organize in directories: file-extension-based modularity over feature-based, nest as `<extension>/<feature>` when warranted. Pin versions via envs in a dedicated file. Use self-descriptive names.
+Modularize by file-extension over feature. Pin versions via envs in a dedicated file. Use self-descriptive names.

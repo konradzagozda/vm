@@ -9,8 +9,9 @@ Use:
 
 ```
 /*
- * Block comment syntax for multi-line.
+ * Block comment syntax
+ * for multi-line.
  */
 ```
 
-Single-line: use the language's standard syntax. Avoid trailing comments.
+Single-line: language's standard syntax. Avoid trailing comments.

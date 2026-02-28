@@ -1,7 +1,7 @@
-secrets/*
-!secrets/.env.example
+envs/*
+!envs/.env.example
 .claude/settings.local.json
 .claude/log/commands.jsonl
-infra/tf/.terraform/
+infra/iac/.terraform/
 .terraform/
 *.tfstate*

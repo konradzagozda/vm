@@ -39,7 +39,7 @@ variable "ubuntu_image" {
   default     = "images:ubuntu/24.04/cloud"
 }
 
-variable "host_secrets_path" {
-  description = "Absolute path to the secrets directory on the host (contains .env, private keys)"
+variable "host_envs_path" {
+  description = "Absolute path to the envs directory on the bare-metal (contains .env, private keys)"
   type        = string
 }
