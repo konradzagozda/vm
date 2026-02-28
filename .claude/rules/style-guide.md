@@ -1,10 +1,12 @@
-## Modularity
-
 Prefer smaller composable modules over lengthy files.
 
-## Defaults
+Prefer environment variables over hardcoded values. Provide sensible defaults.
 
-Prefer environment variables over hardcoded values. Always provide sensible defaults.
+Prefer self-descriptive naming. Only comment when *why* is not obvious.
+
+Use direct language — state what to do, avoid "should", "may", "consider".
+
+Be concise — less specific and correct beats verbose and wrong.
 
 ## Comments
 
@@ -13,4 +15,4 @@ Prefer environment variables over hardcoded values. Always provide sensible defa
  * Prefer this over repeating single-line comment markers.
  */
 
-For single-line comments, use the language's standard single-line syntax. Only comment *why*, not *what* — the code should be self-explanatory. Avoid trailing comments unless they add significant clarity.
+For single-line comments, use the language's standard syntax. Avoid trailing comments unless they add significant clarity.

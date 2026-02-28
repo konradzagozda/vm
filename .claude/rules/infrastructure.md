@@ -3,14 +3,16 @@ paths:
   - "infra/**"
 ---
 
-All infrastructure code lives in the `/infra` directory. **Always look up official documentation before making design decisions** — this is critical for infrastructure where misconfiguration has outsized consequences. Do not assume tool capabilities; verify them.
+All infrastructure code lives in `/infra`. **Always consult official documentation before design decisions** — misconfiguration has outsized consequences.
+
+Prefer explicit configuration over relying on defaults.
 
 ## Configuration as Code
 
-Use configuration tools to their fullest capabilities — search their documentation for native features before writing custom scripts. Avoid scripting unless absolutely necessary. Reference scripts from mounted paths rather than embedding content inline.
+Exhaust native features of configuration tools before writing scripts. Avoid scripting unless absolutely necessary. Reference scripts from mounted paths, not inline content.
 
-Example tools: cloud-init.
+e.g. cloud-init.
 
 ## Infrastructure as Code
 
-Each resource should have its purpose stated as a comment. Infrastructure components should be organized in directories, preferring file-extension-based modularity over feature-based. When complexity warrants it, nest as `<file_extension>/<feature>`. Prefer pinning versions via environment variables using `tool-versions.env`. Use descriptive variable names and always provide a `description` field.
+Organize in directories: prefer file-extension-based modularity over feature-based. Nest as `<extension>/<feature>` when warranted. Pin versions via environment variables using `tool-versions.env`. Use self-descriptive names with `description` fields.
