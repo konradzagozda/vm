@@ -18,8 +18,9 @@ resource "incus_instance" "vm" {
       gh_token_version = local.tools["GH_TOKEN_VERSION"]
       nodejs_version   = local.tools["NODEJS_VERSION"]
     })
-    "limits.cpu"    = var.cpus
-    "limits.memory" = var.memory
+    "limits.cpu"          = var.cpus
+    "limits.memory"       = var.memory
+    "security.secureboot" = "false"
   }
 
   device {

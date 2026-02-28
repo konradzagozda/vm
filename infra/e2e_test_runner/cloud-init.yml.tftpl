@@ -55,9 +55,15 @@ packages:
   - jq
   - gpg
   - just
+  - unzip
 
 runcmd:
-  - /root/projects/vm_dev/infra/e2e_test_runner/scripts/setup_incus.sh
-  - /root/projects/vm_dev/infra/e2e_test_runner/scripts/install_opentofu.sh
-  - /root/projects/vm_dev/infra/common/scripts/install_gh_cli.sh
-  - /root/projects/vm_dev/infra/common/scripts/install_gh_token.sh
+  - |
+    for i in $(seq 1 10); do
+      mountpoint -q ${vm_mount_path} && break
+      sleep 2
+    done
+  - bash /root/projects/vm_dev/infra/e2e_test_runner/scripts/setup_incus.sh
+  - bash /root/projects/vm_dev/infra/e2e_test_runner/scripts/install_opentofu.sh
+  - bash /root/projects/vm_dev/infra/common/scripts/install_gh_cli.sh
+  - bash /root/projects/vm_dev/infra/common/scripts/install_gh_token.sh

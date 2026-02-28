@@ -2,15 +2,20 @@
 set -euox pipefail
 
 # Add Zabbly apt repo, install and initialize Incus.
+# Works on both bare_metal and e2e_test_runner.
 # KAN-21: Replace Zabbly repo with install from source.
 #
 # Example:
 #   ./setup_incus.sh
 #
 # Environment:
-#   INCUS_VERSION — required, from /etc/tool-versions.env
+#   INCUS_VERSION — required, from /etc/tool-versions.env or caller
 
-. /etc/tool-versions.env
+if [ -f /etc/tool-versions.env ]; then
+  . /etc/tool-versions.env
+fi
+
+: "${INCUS_VERSION:?INCUS_VERSION is required}"
 
 curl -fsSL https://pkgs.zabbly.com/key.asc \
   | gpg --dearmor -o /usr/share/keyrings/zabbly.gpg
@@ -26,4 +31,9 @@ PINEOF
 
 apt-get update
 apt-get install -y incus incus-ui-canonical
-incus admin init --preseed < /etc/incus/init-config.yaml
+
+if [ -f /etc/incus/init-config.yaml ]; then
+  incus admin init --preseed < /etc/incus/init-config.yaml
+else
+  incus admin init --minimal
+fi

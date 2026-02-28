@@ -1,7 +1,7 @@
 variable "vm_name" {
   description = "Name of the e2e test runner VM"
   type        = string
-  default     = "e2e_test_runner"
+  default     = "e2e-test-runner"
 }
 
 variable "cpus" {

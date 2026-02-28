@@ -17,10 +17,12 @@ resource "incus_instance" "vm" {
       opentofu_version = local.tools["OPENTOFU_VERSION"]
       gh_cli_version   = local.tools["GH_CLI_VERSION"]
       gh_token_version = local.tools["GH_TOKEN_VERSION"]
+      vm_mount_path    = var.vm_mount_path
     })
-    "limits.cpu"       = var.cpus
-    "limits.memory"    = var.memory
-    "security.nesting" = "true"
+    "limits.cpu"           = var.cpus
+    "limits.memory"        = var.memory
+    "security.nesting"     = "true"
+    "security.secureboot"  = "false"
   }
 
   device {

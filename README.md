@@ -19,7 +19,12 @@ Isolated VM-based development environment for Claude Code. A bare_metal director
    # Edit .env and infra/bare_metal/secrets/gh_app_key.pem with your values
    ```
 
-4. **Provision the workstation:**
+4. **Load env vars** (already automatic for `just` targets):
+   ```sh
+   set -a; source .env; set +a
+   ```
+
+5. **Provision the workstation:**
    ```sh
    just vm-init  # once
    just vm-up
