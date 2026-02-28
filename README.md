@@ -16,7 +16,7 @@ Isolated VM-based development environment for Claude Code. A bare-metal director
 3. **Configure secrets:**
    ```sh
    just prepare-env
-   # Edit .env and infra/secrets/key.pem with your values
+   # Edit .env and infra/secrets/gh_app_key.pem with your values
    ```
 
 4. **Provision the workstation:**

@@ -44,7 +44,7 @@ runcmd:
     export PATH="$HOME/.local/bin:$PATH"
 
     # Fix GH_APP_PRIVATE_KEY_PATH for VM context
-    export GH_APP_PRIVATE_KEY_PATH="/root/secrets/key.pem"
+    export GH_APP_PRIVATE_KEY_PATH="/root/secrets/gh_app_key.pem"
     EOF
   - echo 'emulate sh -c "source /etc/profile"' >> /etc/zsh/zprofile
   - |

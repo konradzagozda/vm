@@ -29,7 +29,7 @@
 │   │       └── setup_incus.sh
 │   ├── secrets/
 │   │   ├── .env.example
-│   │   └── key.example.pem
+│   │   └── gh_app_key.example.pem
 │   └── tests/
 │       └── e2e_workstation.sh
 ```
