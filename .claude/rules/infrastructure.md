@@ -16,3 +16,5 @@ e.g. cloud-init.
 ## Infrastructure as Code
 
 Modularize by file-extension over feature. Pin versions via envs in a dedicated file. Use self-descriptive names.
+
+Do not define outputs unless they are consumed by another module or script.

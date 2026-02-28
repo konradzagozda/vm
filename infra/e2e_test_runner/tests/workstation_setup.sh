@@ -11,8 +11,12 @@ set -euox pipefail
 #   VM_HOST_MOUNT_PATH   — optional, default /root/projects
 #   VM_HOST_SECRETS_PATH — optional, default /root/projects/vm_dev/infra/bare_metal/secrets
 
-VM_HOST_MOUNT_PATH="${VM_HOST_MOUNT_PATH:-/root/projects}"
-VM_HOST_SECRETS_PATH="${VM_HOST_SECRETS_PATH:-/root/projects/vm_dev/infra/bare_metal/secrets}"
+# Nested virtiofs mounts cause stale file handles — copy to local disk
+LOCAL_PROJECTS=/root/local_projects
+rsync -a --delete /root/projects/ "$LOCAL_PROJECTS/"
+
+VM_HOST_MOUNT_PATH="$LOCAL_PROJECTS"
+VM_HOST_SECRETS_PATH="$LOCAL_PROJECTS/vm_dev/infra/bare_metal/secrets"
 
 TOFU_VARS=(
   -var="host_mount_path=$VM_HOST_MOUNT_PATH"
@@ -20,13 +24,20 @@ TOFU_VARS=(
 )
 
 echo "==> Initializing..."
-tofu -chdir=infra/workstation/iac init -input=false -lockfile=readonly
+rm -rf infra/workstation/iac/.terraform/providers
+tofu -chdir=infra/workstation/iac init -input=false
 
 echo "==> Destroying existing VM (if any)..."
 tofu -chdir=infra/workstation/iac destroy -auto-approve "${TOFU_VARS[@]}"
 
 echo "==> Creating VM..."
 tofu -chdir=infra/workstation/iac apply -auto-approve "${TOFU_VARS[@]}"
+
+echo "==> Waiting for VM agent..."
+for i in $(seq 1 30); do
+  incus exec workstation -- true 2>/dev/null && break
+  sleep 2
+done
 
 echo "==> Waiting for cloud-init to complete..."
 incus exec workstation -- cloud-init status --wait
