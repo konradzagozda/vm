@@ -2,14 +2,16 @@
 
 ## Prerequisites
 
-1. **LXD installed and initialized:**
+1. **Incus installed and initialized:**
    ```sh
-   # Add your user to the lxd group (log out and back in after)
-   sudo usermod -aG lxd $USER
+   # Add your user to the incus-admin group (log out and back in after)
+   sudo usermod -aG incus-admin $USER
 
-   # Initialize LXD with defaults
-   lxd init --minimal
+   # Initialize Incus with defaults
+   incus admin init --minimal
    ```
+
+   For automated host setup, see `infra/host-cloud-init.yml`.
 
 2. **OpenTofu installed:** [Install instructions](https://opentofu.org/docs/intro/install/)
 
@@ -41,7 +43,7 @@ just vm-down
 
 ```sh
 set -a
-source .env
+source secrets/.env
 set +a
 ```
 

@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    lxd = {
-      source  = "terraform-lxd/lxd"
-      version = "~> 2.7.0"
+    incus = {
+      source  = "lxc/incus"
+      version = "~> 1.0"
     }
   }
 }

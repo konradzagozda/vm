@@ -25,10 +25,10 @@ vm-down:
       -var="host_secrets_path=$VM_HOST_SECRETS_PATH"
 
 vm-ssh:
-    lxc exec workstation -- sudo --login --user root
+    incus exec workstation -- sudo --login --user root
 
 vm-status:
-    lxc list workstation --format=table
+    incus list workstation --format=table
 
 # E2E validation: destroy, create VM, verify (leaves VM running)
 vm-test:
