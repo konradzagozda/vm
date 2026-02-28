@@ -2,6 +2,7 @@ set dotenv-filename := ".env"
 
 prepare-env:
     cp infra/bare_metal/.env.example .env
+    cp .env infra/bare_metal/secrets/.env
     cp infra/bare_metal/secrets/gh_app_key.example.pem infra/bare_metal/secrets/gh_app_key.pem
     @echo "Edit .env and infra/bare_metal/secrets/gh_app_key.pem with your values"
 
