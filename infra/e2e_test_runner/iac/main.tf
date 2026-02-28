@@ -1,3 +1,9 @@
+locals {
+  tools = { for line in compact(split("\n", file("${path.module}/../tools.env"))) :
+    split("=", line)[0] => split("=", line)[1]
+  }
+}
+
 provider "incus" {}
 
 resource "incus_instance" "vm" {
@@ -6,10 +12,15 @@ resource "incus_instance" "vm" {
   type  = "virtual-machine"
 
   config = {
-    "cloud-init.user-data" = file("${path.module}/../../e2e_test_runner.cloud_init.yml")
-    "limits.cpu"           = var.cpus
-    "limits.memory"        = var.memory
-    "security.nesting"     = "true"
+    "cloud-init.user-data" = templatefile("${path.module}/../cloud-init.yml.tftpl", {
+      incus_version    = local.tools["INCUS_VERSION"]
+      opentofu_version = local.tools["OPENTOFU_VERSION"]
+      gh_cli_version   = local.tools["GH_CLI_VERSION"]
+      gh_token_version = local.tools["GH_TOKEN_VERSION"]
+    })
+    "limits.cpu"       = var.cpus
+    "limits.memory"    = var.memory
+    "security.nesting" = "true"
   }
 
   device {

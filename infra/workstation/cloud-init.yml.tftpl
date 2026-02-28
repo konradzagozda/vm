@@ -1,0 +1,34 @@
+#cloud-config
+package_update: true
+
+packages:
+  - git
+  - curl
+  - zsh
+  - jq
+  - build-essential
+  - unzip
+  - ca-certificates
+  - gnupg
+
+write_files:
+  - path: /etc/tool-versions.env
+    content: |
+      GH_CLI_VERSION=${gh_cli_version}
+      GH_TOKEN_VERSION=${gh_token_version}
+      NODEJS_VERSION=${nodejs_version}
+
+runcmd:
+  - |
+    for i in $(seq 1 10); do
+      mountpoint -q ${vm_mount_path} && break
+      sleep 2
+    done
+  - /root/projects/vm_dev/infra/workstation/scripts/install_nodejs.sh
+  - /root/projects/vm_dev/infra/common/scripts/install_gh_cli.sh
+  - /root/projects/vm_dev/infra/common/scripts/install_gh_token.sh
+  - /root/projects/vm_dev/infra/workstation/scripts/install_uv.sh
+  - /root/projects/vm_dev/infra/workstation/scripts/install_claude_code.sh
+  - /root/projects/vm_dev/infra/workstation/scripts/install_ohmyzsh.sh
+  - /root/projects/vm_dev/infra/workstation/scripts/setup_shell.sh
+  - /root/projects/vm_dev/infra/workstation/scripts/setup_mcp.sh

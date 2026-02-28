@@ -40,6 +40,6 @@ variable "ubuntu_image" {
 }
 
 variable "host_secrets_path" {
-  description = "Absolute path to the secrets directory on the bare-metal (contains .env, private keys)"
+  description = "Absolute path to the secrets directory on the bare_metal (contains .env, private keys)"
   type        = string
 }

@@ -1,3 +1,9 @@
+locals {
+  tools = { for line in compact(split("\n", file("${path.module}/../tools.env"))) :
+    split("=", line)[0] => split("=", line)[1]
+  }
+}
+
 provider "incus" {}
 
 resource "incus_instance" "vm" {
@@ -6,8 +12,11 @@ resource "incus_instance" "vm" {
   type  = "virtual-machine"
 
   config = {
-    "cloud-init.user-data" = templatefile("${path.module}/../../workstation.cloud_init.yml.tftpl", {
-      vm_mount_path = var.vm_mount_path
+    "cloud-init.user-data" = templatefile("${path.module}/../cloud-init.yml.tftpl", {
+      vm_mount_path    = var.vm_mount_path
+      gh_cli_version   = local.tools["GH_CLI_VERSION"]
+      gh_token_version = local.tools["GH_TOKEN_VERSION"]
+      nodejs_version   = local.tools["NODEJS_VERSION"]
     })
     "limits.cpu"    = var.cpus
     "limits.memory" = var.memory

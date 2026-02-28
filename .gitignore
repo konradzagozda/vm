@@ -1,7 +1,8 @@
 .env
-infra/secrets/*
-!infra/secrets/*.example.*
+infra/bare_metal/secrets/*
+!infra/bare_metal/secrets/*.example.*
 .claude/settings.local.json
 .claude/log/commands.jsonl
 .terraform/
 *.tfstate*
+.pem
