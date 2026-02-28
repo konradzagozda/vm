@@ -3,22 +3,23 @@ paths:
   - "**/*.sh"
 ---
 
-Every script starts with `#!/usr/bin/env bash` and `set -euo pipefail -x`.
+Every script starts with `#!/usr/bin/env bash`, `set -euo pipefail`, and `set -x` on the next line.
 
-Prefer passing information via environment variables over positional arguments.
+Use environment variables over args and opts.
 
-## Header
+## Docblock
 
-Every script has a top-level block comment with, in this order:
+Every script has a top-level block comment:
 
-1. Purpose — what the script does
-2. Example — exactly one invocation example; more examples beneath Usage
-3. Environment — required and optional environment variables
-4. Usage — full usage / flags
+1. Purpose
+2. Example — exactly one invocation, more beneath Usage
+3. Environment — required and optional vars
+4. Usage — flags, options
 
 ```bash
 #!/usr/bin/env bash
-set -euo pipefail -x
+set -euo pipefail
+set -x
 
 /*
  * Install GitHub CLI from precompiled binaries.
@@ -27,7 +28,7 @@ set -euo pipefail -x
  *   ./install-gh-cli.sh
  *
  * Environment:
- *   GH_CLI_VERSION — required, read from /etc/tool-versions.env
+ *   GH_CLI_VERSION — required, from /etc/tool-versions.env
  *
  * Usage:
  *   ./install-gh-cli.sh
