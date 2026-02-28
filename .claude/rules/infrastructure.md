@@ -3,33 +3,12 @@ paths:
   - "infra/**"
 ---
 
-## General
-
-Use tools to their fullest potential and avoid scripting until absolutely necessary. Prefer passing information via environment variables over hardcoded values.
+All infrastructure code lives in the `/infra` directory. Use tools to their fullest potential and avoid scripting until absolutely necessary. Prefer passing information via environment variables over hardcoded values.
 
 ## Cloud-init
 
-From the [cloud-init docs](https://cloudinit.readthedocs.io/):
+Use cloud-init to its fullest capabilities — search its [documentation](https://cloudinit.readthedocs.io/) for native modules before writing shell commands. Avoid `runcmd` unless absolutely necessary. Reference scripts from mounted paths rather than embedding content inline.
 
-> Cloud-init is the industry standard multi-distribution method for cross-platform cloud instance initialisation.
+## Infrastructure as Code
 
-Exhaust cloud-init's native modules (`packages`, `users`, `groups`, `write_files`, `apt`, `snap`, `timezone`, `locale`, `ntp`, `ssh`, `mounts`) before falling back to `runcmd`. Reference scripts from mounted paths rather than embedding content inline.
-
-## Shell scripts
-
-Each tool installation or configuration step should be its own script if no default package manager repository allows installation.
-
-## Terraform / OpenTofu
-
-Use single-line comments (`#`) for brief annotations above resource blocks. For longer explanations, use block comments:
-
-```hcl
-/*
- * Multi-line explanation goes here.
- * Describe the why, not the what.
- */
-```
-
-Avoid trailing comments on resource properties unless they add significant clarity.
-
-Place all `.tf` files in a dedicated subdirectory (e.g. `infra/tf/`), separate from cloud-init configs and scripts. Pin version constraints explicitly in `versions.tf`. Use descriptive variable names and always provide a `description` field.
+Each resource should have its purpose stated as a comment. Infrastructure components should be organized in directories, preferring file-extension-based modularity over feature-based. When complexity warrants it, nest as `<file_extension>/<feature>`. Pin version constraints explicitly. Use descriptive variable names and always provide a `description` field.
