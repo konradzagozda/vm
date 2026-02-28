@@ -3,33 +3,35 @@
 ├── Justfile
 ├── README.md
 ├── infra/
-│   ├── e2e_test_runner.cloud_init.yml
-│   ├── workstation.cloud_init.yml.tftpl
-│   ├── envs/
-│   │   ├── bare_metal.example.env
-│   │   ├── e2e_test_runner.env
-│   │   └── workstation.env
-│   ├── iac/
-│   │   ├── workstation/
-│   │   │   ├── main.tf
-│   │   │   ├── outputs.tf
-│   │   │   ├── variables.tf
-│   │   │   └── versions.tf
-│   │   └── e2e/
-│   │       ├── main.tf
-│   │       ├── outputs.tf
-│   │       ├── variables.tf
-│   │       └── versions.tf
-│   ├── scripts/
-│   │   ├── gh_setup.sh                   — GitHub App auth (bare-metal or workstation)
-│   │   └── host/
-│   │       ├── install_gh_cli.sh
-│   │       ├── install_gh_token.sh
-│   │       ├── install_opentofu.sh
-│   │       └── setup_incus.sh
-│   ├── secrets/
-│   │   ├── .env.example
-│   │   └── gh_app_key.example.pem
-│   └── tests/
-│       └── e2e_workstation.sh
+│   ├── bare_metal/
+│   │   ├── .env.example              — secrets template
+│   │   ├── secrets/                   — runtime secrets (gitignored)
+│   │   │   └── gh_app_key.example.pem
+│   │   └── tests/
+│   │       └── e2e.sh                 — wrapper: creates e2e_test_runner, runs test, destroys
+│   ├── common/
+│   │   └── scripts/
+│   │       ├── gh_setup.sh            — GitHub App auth
+│   │       ├── install_gh_cli.sh      — precompiled gh binary
+│   │       └── install_gh_token.sh    — gh-token binary
+│   ├── e2e_test_runner/
+│   │   ├── cloud-init.yml.tftpl       — cloud-init template
+│   │   ├── iac/                       — OpenTofu root module
+│   │   ├── scripts/
+│   │   │   ├── install_opentofu.sh
+│   │   │   └── setup_incus.sh
+│   │   ├── tests/
+│   │   │   └── workstation_setup.sh   — creates workstation, validates, destroys
+│   │   └── tools.env                  — pinned versions
+│   └── workstation/
+│       ├── cloud-init.yml.tftpl       — cloud-init template
+│       ├── iac/                       — OpenTofu root module
+│       ├── scripts/
+│       │   ├── install_claude_code.sh
+│       │   ├── install_nodejs.sh
+│       │   ├── install_ohmyzsh.sh
+│       │   ├── install_uv.sh
+│       │   ├── setup_mcp.sh
+│       │   └── setup_shell.sh
+│       └── tools.env                  — pinned versions
 ```

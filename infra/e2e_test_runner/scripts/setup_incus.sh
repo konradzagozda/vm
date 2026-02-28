@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
-set -x
+set -euox pipefail
 
 /*
  * Add Zabbly apt repo, install and initialize Incus.
@@ -10,7 +9,7 @@ set -x
  *   ./setup_incus.sh
  *
  * Environment:
- *   INCUS_PIN — required, from /etc/tool-versions.env
+ *   INCUS_VERSION — required, from /etc/tool-versions.env
  */
 
 . /etc/tool-versions.env
@@ -23,7 +22,7 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/zabbly.gpg] https://pkgs.zab
 
 cat > /etc/apt/preferences.d/pin-incus << PINEOF
 Package: incus incus-base incus-client
-Pin: version ${INCUS_PIN}.*
+Pin: version ${INCUS_VERSION}.*
 Pin-Priority: 990
 PINEOF
 

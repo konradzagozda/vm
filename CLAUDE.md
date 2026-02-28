@@ -4,52 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Isolated VM-based development environment for Claude Code. A bare-metal directory is mounted into the workstation VM so Claude can work inside the VM while files live on the bare-metal host.
+Isolated VM-based development environment for Claude Code. A bare_metal directory is mounted into the workstation VM so Claude can work inside the VM while files live on the bare_metal host.
 
 **Tech stack:** Incus/QEMU/KVM, OpenTofu, Ubuntu 24.04, Justfile, pre-commit.
 
 ## Glossary
 
-| Name | Role |
-|------|------|
-| **bare-metal** | User's physical machine |
-| **workstation** | Agent workspace VM |
-| **e2e_test_runner** | Validates complete setup of dependencies, scripts, and repeatable workstation provisioning |
+- **bare_metal** — user's physical machine
+- **workstation** — agent workspace VM
+- **e2e_test_runner** — validates complete setup of dependencies, scripts, and repeatable workstation provisioning
 
 ## Reference Docs
 
 - [`README.md`](README.md) — Setup instructions
-- [`.claude/rules/`](.claude/rules/) — Code style rules (auto-matched by file pattern)
 - [`docs/style_guide.md`](docs/style_guide.md) — Project-specific style (version pinning, glossary)
 - [`docs/file_tree.md`](docs/file_tree.md) — File tree
 
 ## Commands
 
-```bash
-just prepare-env  # Copy example configs to working locations
-just gh-setup     # GitHub App auth
-just vm-init      # Download OpenTofu providers (once)
-just vm-plan      # Preview changes
-just vm-up        # Create or update workstation
-just vm-down      # Destroy workstation
-just vm-ssh       # Shell into workstation as root
-just vm-status    # Show workstation status
-just vm-test      # E2E validation (run inside e2e_test_runner)
-just e2e-init     # Download OpenTofu providers for e2e
-just e2e-up       # Create e2e_test_runner VM
-just e2e-down     # Destroy e2e_test_runner VM
-just e2e-ssh      # Shell into e2e_test_runner as root
-just e2e-test     # Run full e2e validation from bare-metal
-just update-lock  # Upgrade provider lock files
-```
+See [`Justfile`](Justfile) for all targets.
 
 ## Architecture
 
 ```
-Bare-metal (Justfile, infra/secrets/)
+bare_metal (Justfile, infra/bare_metal/secrets/)
   └── Workstation (OpenTofu → Incus/QEMU/KVM → Ubuntu 24.04)
-       ├── Bare-metal dir mounted at /root/projects
-       ├── infra/secrets/ mounted at /root/secrets
+       ├── bare_metal dir mounted at /root/projects
+       ├── infra/bare_metal/secrets/ mounted at /root/secrets
        ├── Cloud-init: packages, write_files, runcmd
        ├── Shell: zsh, oh-my-zsh, Claude Code, gh CLI
        └── MCP: context7, mcp-atlassian, ElevenLabs

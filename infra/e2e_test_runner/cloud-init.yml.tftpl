@@ -13,10 +13,10 @@ users:
 write_files:
   - path: /etc/tool-versions.env
     content: |
-      INCUS_PIN=6.22
-      OPENTOFU_VERSION=1.9.0
-      GH_CLI_VERSION=2.87.3
-      GH_TOKEN_VERSION=2.0.3
+      INCUS_VERSION=${incus_version}
+      OPENTOFU_VERSION=${opentofu_version}
+      GH_CLI_VERSION=${gh_cli_version}
+      GH_TOKEN_VERSION=${gh_token_version}
   - path: /etc/profile.d/tool-versions.sh
     content: |
       set -a
@@ -57,7 +57,7 @@ packages:
   - just
 
 runcmd:
-  - /root/projects/vm_dev/infra/scripts/host/setup_incus.sh
-  - /root/projects/vm_dev/infra/scripts/host/install_opentofu.sh
-  - /root/projects/vm_dev/infra/scripts/host/install_gh_cli.sh
-  - /root/projects/vm_dev/infra/scripts/host/install_gh_token.sh
+  - /root/projects/vm_dev/infra/e2e_test_runner/scripts/setup_incus.sh
+  - /root/projects/vm_dev/infra/e2e_test_runner/scripts/install_opentofu.sh
+  - /root/projects/vm_dev/infra/common/scripts/install_gh_cli.sh
+  - /root/projects/vm_dev/infra/common/scripts/install_gh_token.sh

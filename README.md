@@ -1,6 +1,6 @@
 # VM Dev
 
-Isolated VM-based development environment for Claude Code. A bare-metal directory is mounted into a workstation VM so Claude can work inside the VM while files live on the host.
+Isolated VM-based development environment for Claude Code. A bare_metal directory is mounted into a workstation VM so Claude can work inside the VM while files live on the host.
 
 ## Setup
 
@@ -9,14 +9,14 @@ Isolated VM-based development environment for Claude Code. A bare-metal director
    sudo usermod -aG incus-admin $USER
    incus admin init --minimal
    ```
-   For automated bare-metal setup, see `infra/e2e_test_runner.cloud_init.yml`.
+   For automated bare_metal setup, see `infra/e2e_test_runner/cloud-init.yml.tftpl`.
 
 2. **Install OpenTofu:** [opentofu.org/docs/intro/install](https://opentofu.org/docs/intro/install/)
 
 3. **Configure secrets:**
    ```sh
    just prepare-env
-   # Edit .env and infra/secrets/gh_app_key.pem with your values
+   # Edit .env and infra/bare_metal/secrets/gh_app_key.pem with your values
    ```
 
 4. **Provision the workstation:**
