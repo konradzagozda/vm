@@ -7,7 +7,7 @@ set -x
  * KAN-21: Replace Zabbly repo with install from source.
  *
  * Example:
- *   ./setup-incus.sh
+ *   ./setup_incus.sh
  *
  * Environment:
  *   INCUS_PIN — required, from /etc/tool-versions.env

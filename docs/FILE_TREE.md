@@ -3,25 +3,27 @@
 ├── Justfile
 ├── README.md
 ├── infra/
-│   ├── e2e-validator.cloud-init.yml
-│   ├── workstation.cloud-init.yml.tftpl
+│   ├── e2e_test_runner.cloud_init.yml
+│   ├── workstation.cloud_init.yml.tftpl
+│   ├── envs/
+│   │   ├── bare_metal.example.env
+│   │   ├── e2e_test_runner.env
+│   │   └── workstation.env
 │   ├── iac/
 │   │   ├── main.tf
 │   │   ├── outputs.tf
 │   │   ├── variables.tf
 │   │   └── versions.tf
 │   ├── scripts/
-│   │   ├── gh-setup.sh                 — GitHub App auth (bare-metal or workstation)
+│   │   ├── gh_setup.sh                   — GitHub App auth (bare-metal or workstation)
 │   │   └── host/
-│   │       ├── install-gh-cli.sh
-│   │       ├── install-gh-token.sh
-│   │       ├── install-opentofu.sh
-│   │       └── setup-incus.sh
-│   ├── tests/
-│   │   └── e2e-workstation.sh
-│   └── tools/
-│       ├── bare-metal.env
-│       └── workstation.env
-└── envs/
-    └── .env.example
+│   │       ├── install_gh_cli.sh
+│   │       ├── install_gh_token.sh
+│   │       ├── install_opentofu.sh
+│   │       └── setup_incus.sh
+│   ├── secrets/
+│   │   ├── .env.example
+│   │   └── key.example.pem
+│   └── tests/
+│       └── e2e_workstation.sh
 ```

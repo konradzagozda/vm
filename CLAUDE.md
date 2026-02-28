@@ -14,7 +14,7 @@ Isolated VM-based development environment for Claude Code. A bare-metal director
 |------|------|
 | **bare-metal** | User's physical machine |
 | **workstation** | Agent workspace VM |
-| **e2e-validator** | Validates complete setup of dependencies, scripts, and repeatable workstation provisioning |
+| **e2e_test_runner** | Validates complete setup of dependencies, scripts, and repeatable workstation provisioning |
 
 ## Reference Docs
 
@@ -26,23 +26,24 @@ Isolated VM-based development environment for Claude Code. A bare-metal director
 ## Commands
 
 ```bash
-just gh-setup   # GitHub App auth
-just vm-init    # Download OpenTofu providers (once)
-just vm-plan    # Preview changes
-just vm-up      # Create or update workstation
-just vm-down    # Destroy workstation
-just vm-ssh     # Shell into workstation as root
-just vm-status  # Show workstation status
-just vm-test    # E2E validation
+just prepare-env # Copy example configs to working locations
+just gh-setup    # GitHub App auth
+just vm-init     # Download OpenTofu providers (once)
+just vm-plan     # Preview changes
+just vm-up       # Create or update workstation
+just vm-down     # Destroy workstation
+just vm-ssh      # Shell into workstation as root
+just vm-status   # Show workstation status
+just vm-test     # E2E validation
 ```
 
 ## Architecture
 
 ```
-Bare-metal (Justfile, envs/)
+Bare-metal (Justfile, infra/secrets/)
   └── Workstation (OpenTofu → Incus/QEMU/KVM → Ubuntu 24.04)
        ├── Bare-metal dir mounted at /root/projects
-       ├── envs/ mounted at /root/envs
+       ├── infra/secrets/ mounted at /root/secrets
        ├── Cloud-init: packages, write_files, runcmd
        ├── Shell: zsh, oh-my-zsh, Claude Code, gh CLI
        └── MCP: context7, mcp-atlassian, ElevenLabs
@@ -50,7 +51,7 @@ Bare-metal (Justfile, envs/)
 
 ## Conventions
 
-- Environment-specific values go in `envs/.env` (never committed)
+- Environment-specific values go in `.env` at project root (never committed)
 - Every repetitive operation gets a Justfile target
 - Workstation provisioning uses cloud-init native modules over scripts
 - Versions pinned explicitly — see `docs/STYLE_GUIDE.md`
