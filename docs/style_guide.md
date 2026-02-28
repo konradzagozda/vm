@@ -8,4 +8,4 @@ Pin all dependency versions explicitly. Centralize pins in `infra/envs/`. Use en
 |------|------|
 | **bare-metal** | User's physical machine |
 | **workstation** | Agent workspace VM |
-| **e2e-validator** | Validates complete setup of dependencies, scripts, and repeatable workstation provisioning |
+| **e2e_test_runner** | Validates complete setup of dependencies, scripts, and repeatable workstation provisioning |

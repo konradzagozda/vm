@@ -6,11 +6,10 @@ resource "incus_instance" "vm" {
   type  = "virtual-machine"
 
   config = {
-    "cloud-init.user-data" = templatefile("${path.module}/../workstation.cloud_init.yml.tftpl", {
-      vm_mount_path = var.vm_mount_path
-    })
-    "limits.cpu"    = var.cpus
-    "limits.memory" = var.memory
+    "cloud-init.user-data" = file("${path.module}/../../e2e_test_runner.cloud_init.yml")
+    "limits.cpu"           = var.cpus
+    "limits.memory"        = var.memory
+    "security.nesting"     = "true"
   }
 
   device {
@@ -32,16 +31,6 @@ resource "incus_instance" "vm" {
     }
   }
 
-  device {
-    name = "secrets"
-    type = "disk"
-    properties = {
-      source = var.host_secrets_path
-      path   = "/root/secrets"
-    }
-  }
-
-  # Virtual NIC attached to the Incus-managed bridge (incusbr0) for NAT internet access
   device {
     name = "eth0"
     type = "nic"

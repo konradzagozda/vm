@@ -10,10 +10,16 @@
 │   │   ├── e2e_test_runner.env
 │   │   └── workstation.env
 │   ├── iac/
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   ├── variables.tf
-│   │   └── versions.tf
+│   │   ├── workstation/
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── variables.tf
+│   │   │   └── versions.tf
+│   │   └── e2e/
+│   │       ├── main.tf
+│   │       ├── outputs.tf
+│   │       ├── variables.tf
+│   │       └── versions.tf
 │   ├── scripts/
 │   │   ├── gh_setup.sh                   — GitHub App auth (bare-metal or workstation)
 │   │   └── host/
