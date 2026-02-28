@@ -1,3 +1,11 @@
+## Modularity
+
+Prefer smaller composable modules over lengthy files.
+
+## Defaults
+
+Prefer environment variables over hardcoded values. Always provide sensible defaults.
+
 ## Comments
 
 /*
@@ -6,11 +14,3 @@
  */
 
 For single-line comments, use the language's standard single-line syntax. Only comment *why*, not *what* — the code should be self-explanatory. Avoid trailing comments unless they add significant clarity.
-
-## Modularity
-
-Prefer smaller composable modules over lengthy files.
-
-## Documentation
-
-Look up official documentation of tools when making design choices and planning. Do not rely on assumptions about tool capabilities.
