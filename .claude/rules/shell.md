@@ -24,12 +24,12 @@ set -euox pipefail
  * Install GitHub CLI from precompiled binaries.
  *
  * Example:
- *   ./install-gh-cli.sh
+ *   ./install_gh_cli.sh
  *
  * Environment:
  *   GH_CLI_VERSION — required, from /etc/tool-versions.env
  *
  * Usage:
- *   ./install-gh-cli.sh
+ *   ./install_gh_cli.sh
  */
 ```

@@ -4,6 +4,7 @@ Use:
 - self-descriptive naming, comment only when *why* is not obvious
 - direct language — state what to do, avoid "should", "may", "consider". If uncertain, ask.
 - concise phrasing — less specific and correct beats verbose and wrong
+- `_` over `-` as word separators in filenames
 
 ## Comments
 

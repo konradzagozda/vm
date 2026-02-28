@@ -15,4 +15,4 @@ e.g. cloud-init.
 
 ## Infrastructure as Code
 
-Modularize by file-extension over feature. Pin versions via envs in a dedicated file. Use self-descriptive names.
+Modularize by file-extension over feature. Pin versions via envs in `infra/envs/`. Use self-descriptive names.
