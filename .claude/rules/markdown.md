@@ -3,12 +3,14 @@ paths:
   - "**/*.md"
 ---
 
-Sort sections in order of importance to the audience. If multiple audiences would prefer different information, split the document into multiple files with a common generic part that references the specific ones.
+Sort sections by importance to the audience. Split into multiple files when audiences diverge, with a common part referencing specifics.
 
-Avoid h1 headings — the filename serves this purpose. Start documents with h2 (`##`).
+Avoid h1 headings — the filename serves this purpose. Start with h2 (`##`).
 
-Avoid generic top-level headings like "General" — provide the description directly at the top of the document or beneath the YAML frontmatter.
+No generic headings like "General" — describe directly at the top or beneath YAML frontmatter.
 
-If a section is very short (one or two sentences), prefer not to introduce a heading for it.
+Skip headings for very short sections (one or two sentences).
 
-KAN-27: Add a configurable markdown linter to enforce these rules.
+Be concise. Use abbreviations where unambiguous (e.g., i.e., etc.). Do not overexplain — make safe assumptions about what the reader knows.
+
+KAN-27: configurable markdown linter to enforce these rules.
