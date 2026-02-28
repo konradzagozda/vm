@@ -1,6 +1,6 @@
-provider "lxd" {}
+provider "incus" {}
 
-resource "lxd_instance" "vm" {
+resource "incus_instance" "vm" {
   name  = var.vm_name
   image = var.ubuntu_image
   type  = "virtual-machine"
@@ -9,11 +9,8 @@ resource "lxd_instance" "vm" {
     "cloud-init.user-data" = templatefile("${path.module}/cloud-init.yml.tftpl", {
       vm_mount_path = var.vm_mount_path
     })
-  }
-
-  limits = {
-    cpu    = var.cpus
-    memory = var.memory
+    "limits.cpu"    = var.cpus
+    "limits.memory" = var.memory
   }
 
   device {
@@ -44,15 +41,15 @@ resource "lxd_instance" "vm" {
     }
   }
 
-  # Attaches a virtual NIC to the VM via the LXD-managed bridge.
-  # lxdbr0 is the default bridge created by `lxd init`, providing
+  # Attaches a virtual NIC to the VM via the Incus-managed bridge.
+  # incusbr0 is the default bridge created by `incus admin init`, providing
   # NAT-based internet access and DHCP for the VM.
   device {
     name = "eth0"
     type = "nic"
     properties = {
-      name    = "eth0"    # Interface name inside the VM
-      network = "lxdbr0"  # LXD-managed bridge on the host
+      name    = "eth0"       # Interface name inside the VM
+      network = "incusbr0"   # Incus-managed bridge on the host
     }
   }
 }

@@ -1,0 +1,128 @@
+#cloud-config
+
+groups:
+  - incus-admin
+
+users:
+  - default
+  - name: testrunner
+    groups: incus-admin, sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+
+# TODO: Replace Zabbly repo with install from source when feasible
+apt:
+  sources:
+    zabbly-incus:
+      source: "deb [arch=amd64 signed-by=$KEY_FILE] https://pkgs.zabbly.com/incus/stable noble main"
+      key: |
+        -----BEGIN PGP PUBLIC KEY BLOCK-----
+
+        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
+        =tHYp
+        -----END PGP PUBLIC KEY BLOCK-----
+
+write_files:
+  - path: /etc/tool-versions
+    content: |
+      INCUS_PIN=6.22
+      OPENTOFU_VERSION=1.9.0
+      GH_CLI_VERSION=2.87.3
+      GH_TOKEN_VERSION=2.0.3
+  - path: /etc/profile.d/tool-versions.sh
+    content: |
+      set -a
+      . /etc/tool-versions
+      set +a
+  - path: /etc/apt/preferences.d/pin-incus
+    content: |
+      Package: incus incus-base incus-client
+      Pin: version 6.22.*
+      Pin-Priority: 990
+  - path: /etc/incus/init-config.yaml
+    content: |
+      config: {}
+      networks:
+      - name: incusbr0
+        type: bridge
+        config:
+          ipv4.address: auto
+          ipv4.nat: "true"
+          ipv6.address: none
+      storage_pools:
+      - name: default
+        driver: dir
+      profiles:
+      - name: default
+        devices:
+          root:
+            path: /
+            pool: default
+            type: disk
+          eth0:
+            name: eth0
+            network: incusbr0
+            type: nic
+
+package_update: true
+
+packages:
+  - incus
+  - incus-ui-canonical
+  - just
+  - git
+  - curl
+  - jq
+
+runcmd:
+  - |
+    set -eu
+    . /etc/tool-versions
+    # Initialize Incus
+    incus admin init --preseed < /etc/incus/init-config.yaml
+    # OpenTofu — standalone installer
+    curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh \
+      | sh -s -- --install-method standalone --opentofu-version "$OPENTOFU_VERSION"
+    # GitHub CLI — precompiled binary
+    curl -fsSL "https://github.com/cli/cli/releases/download/v${GH_CLI_VERSION}/gh_${GH_CLI_VERSION}_linux_amd64.tar.gz" \
+      | tar -xz -C /usr/local --strip-components=1
+    # gh-token — standalone binary
+    curl -fsSL "https://github.com/Link-/gh-token/releases/download/v${GH_TOKEN_VERSION}/linux-amd64" \
+      -o /usr/local/bin/gh-token
+    chmod +x /usr/local/bin/gh-token

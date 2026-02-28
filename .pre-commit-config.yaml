@@ -7,3 +7,11 @@ repos:
     rev: v8.30.0
     hooks:
       - id: gitleaks
+  - repo: local
+    hooks:
+      - id: cloud-init-schema
+        name: Validate cloud-init configs
+        language: system
+        entry: cloud-init schema --annotate -c
+        files: host-cloud-init\.yml$
+        types: [yaml]

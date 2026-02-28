@@ -16,34 +16,34 @@ echo "==> Creating VM..."
 tofu -chdir=infra apply -auto-approve "${TOFU_VARS[@]}"
 
 echo "==> Waiting for cloud-init to complete..."
-lxc exec workstation -- cloud-init status --wait
+incus exec workstation -- cloud-init status --wait
 
 echo "==> Verifying VM is running..."
-lxc list workstation --format=csv -c s | grep -q RUNNING
+incus list workstation --format=csv -c s | grep -q RUNNING
 
 echo "==> Verifying mount..."
-lxc exec workstation -- mountpoint -q /root/vm_projects
+incus exec workstation -- mountpoint -q /root/vm_projects
 
 echo "==> Verifying secrets mount..."
-lxc exec workstation -- test -f /root/secrets/.env
+incus exec workstation -- test -f /root/secrets/.env
 
 echo "==> Verifying network..."
-lxc exec workstation -- ping -c 1 -W 5 archive.ubuntu.com
+incus exec workstation -- ping -c 1 -W 5 archive.ubuntu.com
 
 echo "==> Verifying Claude Code..."
-lxc exec workstation -- zsh -lc "claude --version"
+incus exec workstation -- zsh -lc "claude --version"
 
 echo "==> Verifying git identity vars..."
-lxc exec workstation -- zsh -lc "env | grep GIT"
+incus exec workstation -- zsh -lc "env | grep GIT"
 
 echo "==> Verifying Jira vars..."
-lxc exec workstation -- zsh -lc "env | grep JIRA"
+incus exec workstation -- zsh -lc "env | grep JIRA"
 
 echo "==> Verifying gh auth login with App credentials..."
-lxc exec workstation -- zsh -lc "bash -" < infra/scripts/gh-setup.sh
-lxc exec workstation -- zsh -lc "gh auth status"
+incus exec workstation -- zsh -lc "bash -" < infra/scripts/gh-setup.sh
+incus exec workstation -- zsh -lc "gh auth status"
 
 echo "==> VM info:"
-lxc exec workstation -- uname -a
+incus exec workstation -- uname -a
 
 echo "==> All checks passed. VM is running."

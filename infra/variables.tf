@@ -1,5 +1,5 @@
 variable "vm_name" {
-  description = "Name of the LXD virtual machine"
+  description = "Name of the Incus virtual machine"
   type        = string
   default     = "workstation"
 }
@@ -36,7 +36,7 @@ variable "vm_mount_path" {
 variable "ubuntu_image" {
   description = "Ubuntu image to use for the VM"
   type        = string
-  default     = "ubuntu:24.04"
+  default     = "images:ubuntu/24.04/cloud"
 }
 
 variable "host_secrets_path" {
