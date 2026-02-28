@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * End-to-end test wrapper: create e2e_test_runner, run workstation setup test, destroy.
- * Runs on bare_metal via `just e2e-test`.
- *
- * Example:
- *   just e2e-test
- */
+# End-to-end test wrapper: create e2e_test_runner, run workstation setup test, destroy.
+# Runs on bare_metal via `just e2e-test`.
+#
+# Example:
+#   just e2e-test
 
 echo "==> Creating e2e_test_runner VM..."
 just e2e-init

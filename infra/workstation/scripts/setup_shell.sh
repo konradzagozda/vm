@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 set -euox pipefail
 
-/*
- * Configure zsh as default shell and set up environment.
- * Writes /etc/profile.d/vm-env.sh to load secrets and tool paths.
- *
- * Example:
- *   ./setup_shell.sh
- */
+# Configure zsh as default shell and set up environment.
+# Writes /etc/profile.d/vm-env.sh to load secrets and tool paths.
+#
+# Example:
+#   ./setup_shell.sh
 
 chsh -s /usr/bin/zsh root
 
