@@ -1,18 +1,16 @@
-Prefer smaller composable modules over lengthy files.
-
-Prefer environment variables over hardcoded values. Provide sensible defaults.
-
-Prefer self-descriptive naming. Only comment when *why* is not obvious.
-
-Use direct language — state what to do, avoid "should", "may", "consider".
-
-Be concise — less specific and correct beats verbose and wrong.
+Use:
+- smaller composable modules over lengthy files
+- environment variables over hardcoded values, with sensible defaults
+- self-descriptive naming, comment only when *why* is not obvious
+- direct language — state what to do, avoid "should", "may", "consider". If uncertain, ask.
+- concise phrasing — less specific and correct beats verbose and wrong
 
 ## Comments
 
+```
 /*
- * Use block comment syntax for multi-line explanations.
- * Prefer this over repeating single-line comment markers.
+ * Block comment syntax for multi-line.
  */
+```
 
-For single-line comments, use the language's standard syntax. Avoid trailing comments unless they add significant clarity.
+Single-line: use the language's standard syntax. Avoid trailing comments.

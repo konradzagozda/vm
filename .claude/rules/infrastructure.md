@@ -5,7 +5,7 @@ paths:
 
 All infrastructure code lives in `/infra`. **Always consult official documentation before design decisions** — misconfiguration has outsized consequences.
 
-Prefer explicit configuration over relying on defaults.
+Use explicit configuration over relying on defaults.
 
 ## Configuration as Code
 
@@ -15,4 +15,4 @@ e.g. cloud-init.
 
 ## Infrastructure as Code
 
-Organize in directories: prefer file-extension-based modularity over feature-based. Nest as `<extension>/<feature>` when warranted. Pin versions via environment variables using `tool-versions.env`. Use self-descriptive names with `description` fields.
+Organize in directories: file-extension-based modularity over feature-based, nest as `<extension>/<feature>` when warranted. Pin versions via envs in a dedicated file. Use self-descriptive names.
