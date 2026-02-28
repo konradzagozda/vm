@@ -30,7 +30,7 @@ variable "host_mount_path" {
 variable "vm_mount_path" {
   description = "Path inside the VM where the host directory is mounted"
   type        = string
-  default     = "/root/vm_projects"
+  default     = "/root/projects"
 }
 
 variable "ubuntu_image" {

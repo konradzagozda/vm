@@ -22,7 +22,7 @@ echo "==> Verifying VM is running..."
 incus list workstation --format=csv -c s | grep -q RUNNING
 
 echo "==> Verifying mount..."
-incus exec workstation -- mountpoint -q /root/vm_projects
+incus exec workstation -- mountpoint -q /root/projects
 
 echo "==> Verifying secrets mount..."
 incus exec workstation -- test -f /root/secrets/.env
