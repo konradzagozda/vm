@@ -1,5 +1,10 @@
 # VM Dev
 
+## IMPORTANT
+Project moved to my private space elsewhere. For collaboration reach to me via zagozdakonrad@gmail.com or https://www.linkedin.com/in/konradzagozda/
+
+## Description
+
 Isolated VM-based development environment for Claude Code. A bare_metal directory is mounted into a workstation VM so Claude can work inside the VM while files live on the host.
 
 ## Setup
